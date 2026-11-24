@@ -1,56 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#100b0a">
+<meta name="description" content="ON FIRE FOR GOD — Warrior for Christ. Share God's Word. Grow in Faith.">
 <title>ON FIRE FOR GOD | Warrior for Christ</title>
-
 <style>
+:root{--bg:#090909;--panel:#191311;--panel2:#241512;--red:#e33b24;--orange:#ff762b;--gold:#ffc45b;--line:#70402c;--muted:#c4b8ae;--green:#286b43;--green2:#17452c}
 *{box-sizing:border-box}
-body{
- margin:0;
- background:#090909;
- color:white;
- font-family:Arial,sans-serif;
-}
-:root{
- --red:#e33b24;
- --orange:#ff762b;
- --gold:#ffc45b;
-}
-button{
- cursor:pointer;
- border:1px solid #a94427;
- border-radius:10px;
- padding:12px 18px;
- background:linear-gradient(135deg,#d93822,#fa762c);
- color:white;
- font-weight:bold;
-}
-input,textarea,select{
- width:100%;
- padding:13px;
- margin:8px 0 15px;
- border-radius:9px;
- border:1px solid #70402c;
- background:#100d0c;
- color:white;
-}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:#fff;font-family:Arial,Helvetica,sans-serif;line-height:1.55}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer;border:1px solid #a94427;border-radius:10px;padding:11px 16px;background:linear-gradient(135deg,#d93822,#fa762c);color:#fff;font-weight:700}
+button:hover{filter:brightness(1.12)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+input,textarea,select{width:100%;padding:12px;margin:7px 0 14px;border-radius:9px;border:1px solid var(--line);background:#100d0c;color:#fff}
+textarea{resize:vertical;min-height:100px}
+label{display:block;font-weight:700;color:#f4d5b4}
+a{color:var(--gold)}
 .hidden{display:none!important}
-.card{
- background:#191311;
- border:1px solid #613522;
- border-radius:16px;
- padding:20px;
- margin:15px 0;
-}
-h1,h2{color:var(--gold)}
-.fire{
- background:linear-gradient(90deg,#ffce65,#ff702b,#e33b24);
- color:transparent;
- background-clip:text;
-}
+.fire{background:linear-gradient(90deg,#ffce65,#ff702b,#e33b24);-webkit-background-clip:text;background-clip:text;color:transparent}
 .auth{
  min-height:100vh;
  display:grid;
@@ -59,83 +29,54 @@ h1,h2{color:var(--gold)}
  background:radial-gradient(#572014,#090909 65%);
 }
 .auth .card{width:min(100%,440px)}
-.logo{text-align:center;font-size:35px;font-weight:900}
+.logo{text-align:center;font-size:35px;font-weight:900;line-height:1.2}
+.auth-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
 main{max-width:1100px;margin:auto;padding:18px}
-header{
- position:sticky;
- top:0;
- z-index:5;
- background:#100c0b;
- border-bottom:1px solid #71321f;
- padding:12px;
- display:flex;
- justify-content:space-between;
- align-items:center;
-}
-.menu{
- position:fixed;
- top:0;left:-320px;
- width:min(300px,80vw);
- height:100%;
- overflow:auto;
- z-index:10;
- background:#130c0a;
- padding:20px;
- transition:.3s;
- border-right:2px solid var(--orange);
-}
+header{position:sticky;top:0;z-index:5;background:#100c0bf2;border-bottom:1px solid #71321f;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;backdrop-filter:blur(10px)}
+header strong{font-size:clamp(13px,3vw,18px);text-align:center}
+.menu{position:fixed;top:0;left:-330px;width:min(310px,84vw);height:100%;overflow:auto;z-index:10;background:#130c0a;padding:18px;border-right:2px solid var(--orange);transition:left .25s}
 .menu.open{left:0}
-.menu button{
- display:block;
- width:100%;
- margin:7px 0;
- text-align:left;
- background:#241410;
-}
-.overlay{
- display:none;
- position:fixed;
- inset:0;
- background:#0009;
- z-index:9;
-}
+.menu button{display:block;width:100%;margin:7px 0;text-align:left;background:#241410;border-color:#58301f}
+.menu .menu-group{color:var(--gold);font-size:12px;text-transform:uppercase;letter-spacing:1.4px;margin:18px 4px 5px}
+.overlay{display:none;position:fixed;inset:0;background:#000b;z-index:9}
 .overlay.open{display:block}
 .page{display:none}
 .page.active{display:block}
-.hero{
- text-align:center;
- padding:65px 15px;
- border:1px solid #79351e;
- border-radius:20px;
- background:radial-gradient(#642315,#100b0a 70%);
-}
-.hero h1{font-size:clamp(40px,9vw,75px);margin:15px}
+.hero{text-align:center;padding:clamp(38px,8vw,70px) 15px;border:1px solid #79351e;border-radius:20px;background:radial-gradient(#642315,#100b0a 72%);box-shadow:inset 0 0 35px #ff6a1c12}
+.hero h1{font-size:clamp(42px,9vw,76px);line-height:.98;margin:12px}
 .hero p{line-height:1.7;color:#ead8c9}
-.grid{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
- gap:14px;
-}
-.link{
- background:#211512;
- border:1px solid #70402c;
- border-radius:13px;
- padding:18px;
- color:white;
- text-align:left;
- width:100%;
-}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:14px}
+.link{background:#211512;border:1px solid var(--line);border-radius:13px;padding:17px;color:white;text-align:left;width:100%;min-height:60px}
 .link:hover{border-color:var(--orange)}
-.verse{font-size:22px;line-height:1.5;color:#fff0df}
-.small{color:#c4b8ae;font-size:13px}
-footer{text-align:center;padding:35px;color:#bca99b}
+.verse{font-size:21px;line-height:1.5;color:#fff0df}
+.small,.muted{color:var(--muted);font-size:13px}
+.notice{padding:12px 14px;border:1px solid #79512c;border-radius:10px;background:#24190f;color:#f6d8ad;font-size:14px}
+.success{border-color:#386d4b;background:#102318;color:#c9f3d5}
+.danger{background:#3a1712;border-color:#8c3324}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.row>*{flex:1 1 160px}
+.row button{flex:0 1 auto}
+.item{padding:13px;border:1px solid #523021;border-radius:11px;background:#120e0d;margin:10px 0;overflow-wrap:anywhere}
+.item h3{margin:0 0 6px;color:var(--gold)}
+.item p{white-space:pre-wrap;margin:6px 0}
+.item-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.item-actions button{padding:7px 11px;font-size:13px}
+.secondary{background:#261a15;border-color:#805033}
+.green-select{background:linear-gradient(135deg,var(--green),var(--green2));border-color:#4a9a68}
+.green-select:focus{outline-color:#78d69a}
+.pill{display:inline-block;border:1px solid #805033;border-radius:99px;padding:3px 9px;color:#f3c47b;font-size:12px;margin:3px}
+.checkline{display:flex;align-items:center;gap:9px;margin:10px 0}
+.checkline input{width:auto;margin:0;accent-color:var(--orange)}
+footer{text-align:center;padding:30px;color:#bca99b}
+footer p{margin:5px}
+.empty{color:#b9a99e;font-style:italic}
+hr{border:0;border-top:1px solid #523021;margin:18px 0}
+.file-preview{max-width:100%;max-height:260px;border-radius:10px;display:block;margin:10px 0}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+@media(max-width:520px){header{padding:9px}header button{padding:9px 11px;font-size:13px}main{padding:12px}.card{padding:15px}.auth-actions{grid-template-columns:1fr 1fr}}
 </style>
 </head>
-
 <body>
-
-<!-- SIGN UP AND LOGIN -->
-
 <div class="auth" id="auth">
  <div class="card">
   <div class="logo fire">✝ ON FIRE FOR GOD</div>
@@ -176,431 +117,156 @@ footer{text-align:center;padding:35px;color:#bca99b}
  </div>
 </div>
 
-<!-- WEBSITE -->
-
 <div id="website" class="hidden">
-
 <header>
- <button onclick="openMenu()">☰ MENU</button>
+ <button type="button" onclick="openMenu()" aria-label="Open navigation menu">☰ MENU</button>
  <strong class="fire">ON FIRE FOR GOD ✝</strong>
- <button onclick="logout()">EXIT</button>
+ <button type="button" class="secondary" onclick="logout()">EXIT</button>
 </header>
-
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
-
-<nav class="menu" id="menu">
- <button onclick="closeMenu()">✕ CLOSE</button>
+<nav class="menu" id="menu" aria-label="Main navigation">
+ <button type="button" onclick="closeMenu()">✕ CLOSE MENU</button>
  <h2 class="fire">WARRIOR FOR CHRIST</h2>
- <button onclick="go('home')">🏠 Home</button>
- <button onclick="go('bible')">📖 Bible</button>
- <button onclick="go('lessons')">✝ Bible Lessons</button>
- <button onclick="go('prayer')">🙏 Prayer Center</button>
- <button onclick="go('journal')">📓 My Journal</button>
- <button onclick="go('community')">🤝 Community</button>
- <button onclick="go('messenger')">✉ Messenger</button>
- <button onclick="go('quizzes')">🏆 Quizzes & Challenges</button>
- <button onclick="go('worship')">🎵 Worship</button>
- <button onclick="go('maps')">🗺 Bible Maps</button>
- <button onclick="go('wallpapers')">🔥 Verse Wallpapers</button>
- <button onclick="go('salvation')">❤️ Salvation Room</button>
- <button onclick="go('ask')">💬 Ask ON FIRE FOR GOD</button>
- <button onclick="go('settings')">⚙ Settings</button>
- <button onclick="go('about')">ℹ About</button>
+ <div class="menu-group">Main</div>
+ <button onclick="go('home')">🏠 Home</button><button onclick="go('bible')">📖 Bible</button><button onclick="go('lessons')">✝ Bible Lessons</button>
+ <div class="menu-group">Faith & Personal Growth</div>
+ <button onclick="go('prayer')">🙏 Prayer Center</button><button onclick="go('journal')">📓 My Journal</button><button onclick="go('churchNotes')">🎥 Church Service Notes</button>
+ <div class="menu-group">Community</div>
+ <button onclick="go('community')">🤝 Community</button><button onclick="go('messenger')">✉ Messenger</button>
+ <div class="menu-group">Explore</div>
+ <button onclick="go('quizzes')">🏆 Quizzes & Challenges</button><button onclick="go('worship')">🎵 Worship</button><button onclick="go('maps')">🗺 Bible Maps</button><button onclick="go('wallpapers')">🔥 Verse Wallpapers</button><button onclick="go('salvation')">❤️ Salvation Room</button><button onclick="go('ask')">💬 Ask ON FIRE FOR GOD</button>
+ <div class="menu-group">Account</div>
+ <button onclick="go('settings')">⚙ Settings</button><button onclick="go('about')">ℹ About</button>
 </nav>
-
 <main>
-
-<!-- HOME -->
-
 <section id="home" class="page active">
  <div class="hero">
-  <h1 class="fire">ON FIRE<br>FOR GOD</h1>
-  <h2>WARRIOR FOR CHRIST ✝</h2>
+  <h1 class="fire">ON FIRE<br>FOR GOD</h1><h2>WARRIOR FOR CHRIST ✝</h2>
   <p id="welcome">Welcome! Keep your heart on fire for God.</p>
-  <button onclick="go('bible')">OPEN THE BIBLE</button>
-  <button onclick="go('prayer')">PRAY NOW</button>
+  <button onclick="go('bible')">OPEN THE BIBLE</button> <button onclick="go('prayer')">PRAY NOW</button>
  </div>
-
  <div class="grid">
-  <div class="card">
-   <h2>Daily Bible Verse</h2>
-   <p class="verse">"I can do all things through Christ which strengtheneth me."</p>
-   <h3>Philippians 4:13</h3>
-  </div>
-  <div class="card">
-   <h2>Daily Encouragement</h2>
-   <p>Keep trusting God. Keep praying. Keep believing. God is with you through every season.</p>
-   <button onclick="go('lessons')">Read a Lesson</button>
-  </div>
+  <div class="card"><h2>Daily Bible Verse</h2><p class="verse">"I can do all things through Christ which strengtheneth me."</p><h3>Philippians 4:13</h3><button class="secondary" onclick="saveVerse('Philippians 4:13 — I can do all things through Christ which strengtheneth me.')">☆ Save Verse</button></div>
+  <div class="card"><h2>Daily Encouragement</h2><p>Keep trusting God. Keep praying. Keep believing. God is with you through every season.</p><button onclick="go('lessons')">Read a Lesson</button></div>
  </div>
- <h2>Explore</h2>
- <div class="grid">
-  <button class="link" onclick="go('bible')">📖 Bible</button>
-  <button class="link" onclick="go('prayer')">🙏 Prayer</button>
-  <button class="link" onclick="go('journal')">📓 Journal</button>
-  <button class="link" onclick="go('community')">🤝 Community</button>
-  <button class="link" onclick="go('quizzes')">🏆 Challenges</button>
-  <button class="link" onclick="go('salvation')">❤️ Salvation</button>
+ <h2>Explore</h2><div class="grid">
+  <button class="link" onclick="go('bible')">📖 Bible</button><button class="link" onclick="go('prayer')">🙏 Prayer</button><button class="link" onclick="go('journal')">📓 Journal</button><button class="link" onclick="go('churchNotes')">🎥 Church Service Notes</button><button class="link" onclick="go('community')">🤝 Community</button><button class="link" onclick="go('quizzes')">🏆 Challenges</button><button class="link" onclick="go('salvation')">❤️ Salvation</button>
  </div>
 </section>
-
-<!-- BIBLE -->
 
 <section id="bible" class="page">
  <h1>📖 The Holy Bible</h1>
- <div class="card">
-  <h2>Today's Scripture</h2>
-  <p class="verse">"For God so loved the world, that he gave his only begotten Son."</p>
-  <h3>John 3:16</h3>
-  <button onclick="saveVerse()">☆ Save Verse</button>
-  <button onclick="copyText('John 3:16 - For God so loved the world.')">Copy Verse</button>
+ <div class="card"><h2>Scripture Reading</h2><p class="verse">"For God so loved the world, that he gave his only begotten Son."</p><h3>John 3:16</h3><button onclick="saveVerse('John 3:16 — For God so loved the world, that he gave his only begotten Son.')">☆ Save Verse</button><button class="secondary" onclick="copyText('John 3:16 — For God so loved the world, that he gave his only begotten Son.')">Copy Verse</button></div>
+ <div class="card"><h2>Find a Bible Passage</h2><p class="muted">Choose a book and enter a chapter or reference. This starter preview contains sample passages only; a complete KJV library, search, and audio need a properly licensed Bible source.</p>
+  <label for="bibleBook">Bible Section</label><select id="bibleBook" class="green-select"><option>Old Testament</option><option>New Testament</option></select>
+  <label for="bibleReference">Book, chapter, or verse reference</label><input id="bibleReference" placeholder="Example: John 3:16">
+  <button onclick="findBible()">LOOK UP SAMPLE PASSAGE</button><div id="bibleResult" class="item empty">Enter a reference to see available sample guidance.</div>
  </div>
- <div class="card">
-  <h2>My Favorite Verses</h2>
-  <div id="favorites">No saved verses yet.</div>
- </div>
- <p class="small">This starter edition includes sample Scripture. A complete Bible library, search, and audio require a properly licensed Bible source.</p>
+ <div class="card"><h2>My Favorite Verses</h2><div id="favorites" class="empty">No saved verses yet.</div></div>
 </section>
 
-<!-- LESSONS -->
-
-<section id="lessons" class="page">
- <h1>✝ Bible Lessons</h1>
- <div class="card">
-  <h2>Who Is Jesus?</h2>
-  <p>Jesus is the Son of God. He came to show God's love and bring salvation.</p>
-  <p>Read John 3:16.</p>
- </div>
- <div class="card">
-  <h2>How To Pray</h2>
-  <p>Prayer is talking with God. Thank Him, praise Him, and share what is on your heart.</p>
-  <p>Read Matthew 6:9-13.</p>
- </div>
- <div class="card">
-  <h2>David and Goliath</h2>
-  <p>David trusted God when he faced a giant.</p>
-  <p>Read 1 Samuel 17.</p>
- </div>
- <div class="card">
-  <h2>Forgiveness</h2>
-  <p>Jesus teaches us to forgive others and show love.</p>
-  <p>Read Ephesians 4:32.</p>
- </div>
+<section id="lessons" class="page"><h1>✝ Bible Lessons</h1>
+ <div class="card"><h2>Who Is Jesus?</h2><p>Jesus is the Son of God. He came to show God's love and bring salvation.</p><p>Read John 3:16.</p></div>
+ <div class="card"><h2>How To Pray</h2><p>Prayer is talking with God. Thank Him, praise Him, and share what is on your heart.</p><p>Read Matthew 6:9-13.</p></div>
+ <div class="card"><h2>David and Goliath</h2><p>David trusted God when he faced a giant.</p><p>Read 1 Samuel 17.</p></div>
+ <div class="card"><h2>Forgiveness</h2><p>Jesus teaches us to forgive others and show love.</p><p>Read Ephesians 4:32.</p></div>
 </section>
 
-<!-- PRAYER -->
-
-<section id="prayer" class="page">
- <h1>🙏 Prayer Center</h1>
- <div class="card">
-  <h2>Write Your Prayer</h2>
-  <textarea id="prayerText" rows="6" placeholder="Dear God..."></textarea>
-  <button onclick="savePrayer()">SAVE PRAYER</button>
- </div>
- <div class="card">
-  <h2>My Saved Prayers</h2>
-  <div id="prayers">No prayers yet.</div>
- </div>
- <p class="small">Your prayers in this preview are saved in this browser only.</p>
+<section id="prayer" class="page"><h1>🙏 Prayer Center</h1>
+ <div class="card"><h2>Write Your Prayer</h2><textarea id="prayerText" rows="6" placeholder="Dear God..."></textarea><button onclick="savePrayer()">SAVE PRAYER</button></div>
+ <div class="card"><h2>My Saved Prayers</h2><div id="prayers" class="empty">No prayers yet.</div></div>
+ <p class="small">Preview entries are stored in this browser only.</p>
 </section>
 
-<!-- JOURNAL -->
-
-<section id="journal" class="page">
- <h1>📓 My Journal</h1>
- <div class="card">
-  <h2>Write Your Thoughts</h2>
-  <input id="journalTitle" placeholder="Entry title">
-  <textarea id="journalText" rows="7" placeholder="What did you learn about God today?"></textarea>
-  <button onclick="saveJournal()">SAVE ENTRY</button>
- </div>
- <div class="card">
-  <h2>My Entries</h2>
-  <div id="entries">No entries yet.</div>
- </div>
+<section id="journal" class="page"><h1>📓 My Journal</h1>
+ <div class="card"><h2>Write Your Thoughts</h2><label for="journalTitle">Entry title</label><input id="journalTitle" placeholder="Entry title"><label for="journalText">Your journal entry</label><textarea id="journalText" rows="7" placeholder="What did you learn about God today?"></textarea>
+ <label for="journalImages">Add pictures of handwritten journal pages</label><input id="journalImages" type="file" accept="image/*" multiple onchange="previewJournalImages(event)"><div id="journalImagePreview"></div>
+ <p class="small">Image-to-text handwriting recognition requires an OCR service. You can attach page pictures in this preview, but automatic reading is not connected yet.</p>
+ <button onclick="saveJournal()">SAVE ENTRY</button></div>
+ <div class="card"><h2>My Entries</h2><div id="entries" class="empty">No entries yet.</div></div>
 </section>
 
-<!-- COMMUNITY -->
-
-<section id="community" class="page">
- <h1>🤝 Christian Community</h1>
- <div class="card">
-  <h2>Share Encouragement</h2>
-  <textarea id="postText" placeholder="Share a Bible verse or encouragement..."></textarea>
-  <button onclick="post()">SHARE PREVIEW POST</button>
+<section id="churchNotes" class="page"><h1>🎥 Church Service Notes</h1>
+ <div class="card"><h2>Turn a Missed Service into Notes</h2><p>Paste a church livestream or sermon video link, or select a video/audio file if your device supports it. The connected AI service will need access to the media or a transcript before it can create accurate notes.</p>
+ <label for="sermonLink">Livestream or video link</label><input id="sermonLink" type="url" placeholder="https://...">
+ <label for="sermonFile">Or choose a sermon recording</label><input id="sermonFile" type="file" accept="video/*,audio/*">
+ <label for="sermonTranscript">Transcript or sermon text (optional)</label><textarea id="sermonTranscript" rows="6" placeholder="Paste a transcript here to prepare notes from the text..."></textarea>
+ <label for="noteStyle">Preferred note style</label><select id="noteStyle"><option value="organized">Organized headings and bullet points</option><option value="detailed">Detailed notes</option><option value="simple">Simple and easy to read</option><option value="personal">Personal reflection style</option></select>
+ <button onclick="prepareSermonNotes()">PREPARE NOTES</button><p id="sermonStatus" class="small" aria-live="polite"></p>
+ <div class="notice">AI video processing is not connected in this HTML preview. For now, you can paste a transcript and create a clearly labeled draft. A secure AI/backend connection is required for automatic video transcription and sermon analysis.</div>
  </div>
- <div class="card">
-  <h2>Community Posts</h2>
-  <div id="posts">No posts yet.</div>
- </div>
- <p class="small">This is a local preview, not a public community. Moderation, blocking, reporting, and secure accounts must be added before public posting.</p>
+ <div class="card"><h2>Review Your Sermon Notes</h2><label for="sermonTitle">Service / sermon title</label><input id="sermonTitle" placeholder="Sunday morning service">
+ <label for="sermonNotes">Your notes</label><textarea id="sermonNotes" rows="10" placeholder="Your sermon notes will appear here. You can edit them before saving."></textarea>
+ <button onclick="saveSermonToJournal()">SAVE TO MY JOURNAL → MY ENTRIES</button></div>
 </section>
 
-<!-- MESSENGER -->
+<section id="community" class="page"><h1>🤝 Christian Community</h1><div class="card"><h2>Share Encouragement</h2><textarea id="postText" placeholder="Share a Bible verse or encouragement..."></textarea><button onclick="post()">SHARE PREVIEW POST</button></div><div class="card"><h2>Community Posts</h2><div id="posts" class="empty">No posts yet.</div></div><p class="small">Local preview only. Public posting requires secure accounts, moderation, reporting, blocking, and abuse prevention.</p></section>
 
-<section id="messenger" class="page">
- <h1>✉ Messenger</h1>
- <div class="card">
-  <h2>Private Messages</h2>
-  <p>Private messaging is coming soon!</p>
-  <p>Secure accounts and private message storage must be connected before this feature launches.</p>
- </div>
-</section>
+<section id="messenger" class="page"><h1>✉ Messenger</h1><div class="card"><h2>Private Messages</h2><p>Private messaging is planned for this section.</p><p>Secure account identity, private message storage, access rules, and reporting/blocking controls must be connected before real messages can be sent.</p><span class="pill">Backend connection required</span></div></section>
 
-<!-- QUIZZES -->
+<section id="quizzes" class="page"><h1>🏆 Quizzes & Challenges</h1><div class="card"><h2>Bible Quiz</h2><p>Who was swallowed by a great fish?</p><button onclick="quiz(true)">Jonah</button><button class="secondary" onclick="quiz(false)">Moses</button><p id="quizResult" aria-live="polite"></p></div><div class="card"><h2>Daily Challenges</h2><label class="checkline"><input type="checkbox" data-challenge="Read one Bible chapter">Read one Bible chapter.</label><label class="checkline"><input type="checkbox" data-challenge="Pray for someone">Pray for someone.</label><label class="checkline"><input type="checkbox" data-challenge="Encourage a friend">Encourage a friend.</label><label class="checkline"><input type="checkbox" data-challenge="Thank God for three things">Thank God for three things.</label><p id="challengeCount" class="small">0 of 4 challenges completed.</p></div></section>
 
-<section id="quizzes" class="page">
- <h1>🏆 Quizzes & Challenges</h1>
- <div class="card">
-  <h2>Bible Quiz</h2>
-  <p>Who was swallowed by a great fish?</p>
-  <button onclick="quiz(true)">Jonah</button>
-  <button onclick="quiz(false)">Moses</button>
-  <p id="quizResult"></p>
- </div>
- <div class="card">
-  <h2>Daily Challenges</h2>
-  <p><input type="checkbox"> Read one Bible chapter.</p>
-  <p><input type="checkbox"> Pray for someone.</p>
-  <p><input type="checkbox"> Encourage a friend.</p>
-  <p><input type="checkbox"> Thank God for three things.</p>
- </div>
-</section>
+<section id="worship" class="page"><h1>🎵 Worship</h1><div class="card"><h2>Praise God!</h2><p>Take time to worship God and thank Him for His blessings.</p><p class="verse">"O come, let us sing unto the LORD."</p><h3>Psalm 95:1</h3><p class="small">Music and audio playback can be added through properly licensed worship resources.</p></div></section>
 
-<!-- WORSHIP -->
+<section id="maps" class="page"><h1>🗺 Bible Maps</h1><div class="card"><h2>Important Bible Places</h2><p>📍 Jerusalem</p><p>📍 Bethlehem</p><p>📍 Mount Sinai</p><p>📍 Sea of Galilee</p><p>Explore the places where important Bible events happened. Interactive maps and historical layers can be connected in a later build.</p></div></section>
 
-<section id="worship" class="page">
- <h1>🎵 Worship</h1>
- <div class="card">
-  <h2>Praise God!</h2>
-  <p>Take time to worship God and thank Him for His blessings.</p>
-  <p class="verse">"O come, let us sing unto the LORD."</p>
-  <h3>Psalm 95:1</h3>
- </div>
-</section>
+<section id="wallpapers" class="page"><h1>🔥 Verse Wallpapers</h1><div class="card"><h2 class="fire">BE STRONG AND COURAGEOUS</h2><p>Joshua 1:9</p><button onclick="copyText('Joshua 1:9')">Copy Verse</button></div><div class="card"><h2 class="fire">THE LORD IS MY SHEPHERD</h2><p>Psalm 23:1</p><button onclick="copyText('Psalm 23:1')">Copy Verse</button></div></section>
 
-<!-- MAPS -->
+<section id="salvation" class="page"><h1>❤️ Salvation Room</h1><div class="card"><h2>God Loves You</h2><p>Christians believe salvation is God's gift through Jesus Christ.</p><p>Read John 3:16, Romans 5:8, and Romans 10:9-13.</p><h2>Follow Jesus</h2><p>Learn about Jesus, pray, read the Bible, and grow in faith. You can also speak with a trusted pastor or Christian mentor.</p></div><div class="card"><h2>My Next Steps</h2><p>Use these prompts for personal reflection. Your answers stay in this browser preview.</p><textarea id="salvationReflection" placeholder="What would you like to talk to God about?"></textarea><button onclick="saveReflection()">SAVE PRIVATE PREVIEW REFLECTION</button><div id="salvationSaved"></div></div></section>
 
-<section id="maps" class="page">
- <h1>🗺 Bible Maps</h1>
- <div class="card">
-  <h2>Important Bible Places</h2>
-  <p>📍 Jerusalem</p>
-  <p>📍 Bethlehem</p>
-  <p>📍 Mount Sinai</p>
-  <p>📍 Sea of Galilee</p>
-  <p>Explore the places where important Bible events happened.</p>
- </div>
-</section>
+<section id="ask" class="page"><h1>💬 Ask ON FIRE FOR GOD</h1><div class="card"><h2>What Is Your Question?</h2><textarea id="question" placeholder="Ask about God, Jesus, faith, or prayer..."></textarea><button onclick="answer()">ASK</button><p id="answerText" aria-live="polite"></p></div><p class="small">This preview uses prepared guidance, not a live AI assistant. A real AI answer service must be connected separately. Questions here are not automatically saved to your journal.</p></section>
 
-<!-- WALLPAPERS -->
+<section id="settings" class="page"><h1>⚙ Settings</h1><div class="card"><h2>Reading Settings</h2><label for="textSize">Text Size</label><select id="textSize" onchange="setTextSize(this.value)"><option value="16px">Normal</option><option value="19px">Large</option><option value="14px">Small</option></select><h2>Privacy & Data</h2><p>Preview information is stored in this browser and is not a secure private account system.</p><button class="danger" onclick="clearDemo()">CLEAR PREVIEW ENTRIES</button></div></section>
 
-<section id="wallpapers" class="page">
- <h1>🔥 Verse Wallpapers</h1>
- <div class="card">
-  <h2 class="fire">BE STRONG AND COURAGEOUS</h2>
-  <p>Joshua 1:9</p>
-  <button onclick="copyText('Joshua 1:9')">Copy Verse</button>
- </div>
- <div class="card">
-  <h2 class="fire">THE LORD IS MY SHEPHERD</h2>
-  <p>Psalm 23:1</p>
-  <button onclick="copyText('Psalm 23:1')">Copy Verse</button>
- </div>
-</section>
-
-<!-- SALVATION -->
-
-<section id="salvation" class="page">
- <h1>❤️ Salvation Room</h1>
- <div class="card">
-  <h2>God Loves You</h2>
-  <p>Christians believe salvation is God's gift through Jesus Christ.</p>
-  <p>Read John 3:16, Romans 5:8, and Romans 10:9-13.</p>
-  <h2>Follow Jesus</h2>
-  <p>Learn about Jesus, pray, read the Bible, and grow in faith. You can also speak with a trusted pastor or Christian mentor.</p>
- </div>
-</section>
-
-<!-- ASK -->
-
-<section id="ask" class="page">
- <h1>💬 Ask ON FIRE FOR GOD</h1>
- <div class="card">
-  <h2>What Is Your Question?</h2>
-  <textarea id="question" placeholder="Ask about God, Jesus, faith, or prayer..."></textarea>
-  <button onclick="answer()">ASK</button>
-  <p id="answerText"></p>
- </div>
- <p class="small">This starter version provides prepared guidance, not a live AI assistant.</p>
-</section>
-
-<!-- SETTINGS -->
-
-<section id="settings" class="page">
- <h1>⚙ Settings</h1>
- <div class="card">
-  <h2>Reading Settings</h2>
-  <label>Text Size</label>
-  <select onchange="document.body.style.fontSize=this.value">
-   <option value="16px">Normal</option>
-   <option value="19px">Large</option>
-   <option value="14px">Small</option>
-  </select>
-  <h2>Privacy</h2>
-  <p>Demo information is stored on this device.</p>
-  <button onclick="clearDemo()">CLEAR DEMO ENTRIES</button>
- </div>
-</section>
-
-<!-- ABOUT -->
-
-<section id="about" class="page">
- <h1>ℹ About Us</h1>
- <div class="card">
-  <h2 class="fire">ON FIRE FOR GOD</h2>
-  <h3>WARRIOR FOR CHRIST ✝</h3>
-  <p>Our mission is to share God's Word, encourage people, and help everyone grow in their faith.</p>
-  <p>Created by Colton Payne, with help from God.</p>
-  <h2>🔥 Keep Your Faith On Fire! 🔥</h2>
- </div>
-</section>
-
+<section id="about" class="page"><h1>ℹ About Us</h1><div class="card"><h2 class="fire">ON FIRE FOR GOD</h2><h3>WARRIOR FOR CHRIST ✝</h3><p>Our mission is to share God's Word, encourage people, and help everyone grow in their faith.</p><p>Created by Colton Payne, with help from God.</p><h2>🔥 Keep Your Faith On Fire! 🔥</h2></div></section>
 </main>
-
-<footer>
- ON FIRE FOR GOD ✝ WARRIOR FOR CHRIST 🔥
- <p>Let your light so shine before men. — Matthew 5:16</p>
-</footer>
+<footer>ON FIRE FOR GOD ✝ WARRIOR FOR CHRIST 🔥<p>Let your light so shine before men. — Matthew 5:16</p></footer>
 </div>
 
 <script>
+'use strict';
 const $=id=>document.getElementById(id);
+const STORE='offg_preview_v2';
+let currentUser='Guest';
+let data={favorites:[],prayers:[],entries:[],posts:[],reflection:''};
+let selectedJournalImages=[];
+function readStore(){try{return JSON.parse(localStorage.getItem(STORE)||'{}')}catch{return {}}}
+function writeStore(){try{const all=readStore();all[currentUser]=data;localStorage.setItem(STORE,JSON.stringify(all))}catch(e){alert('This browser could not save the preview data. You can still use the page during this visit.')}}
+function loadUser(name){currentUser=name;const all=readStore();data=all[name]||{favorites:[],prayers:[],entries:[],posts:[],reflection:''};renderAll()}
 
-let currentUser=null;
-let favorites=[];
-let prayers=[];
-let entries=[];
-let posts=[];
-
-function showSignup(){
- $('signup').classList.remove('hidden');
- $('login').classList.add('hidden');
-}
-function showLogin(){
- $('login').classList.remove('hidden');
- $('signup').classList.add('hidden');
-}
-function enter(name){
- currentUser=name;
- $('auth').classList.add('hidden');
- $('website').classList.remove('hidden');
- $('welcome').textContent='Welcome, '+name+'! Keep your heart on fire for God.';
-}
-$('signup').onsubmit=e=>{
- e.preventDefault();
- let name=$('name').value;
- let email=$('email').value.toLowerCase();
- let password=$('password').value;
- let users=JSON.parse(localStorage.getItem('demoUsers')||'{}');
- if(users[email]){
-  alert('Account already exists. Please log in.');
-  return;
- }
- users[email]={name,password};
- localStorage.setItem('demoUsers',JSON.stringify(users));
- enter(name);
-};
-$('login').onsubmit=e=>{
- e.preventDefault();
- let users=JSON.parse(localStorage.getItem('demoUsers')||'{}');
- let email=$('loginEmail').value.toLowerCase();
- let password=$('loginPassword').value;
- if(!users[email]||users[email].password!==password){
-  alert('Incorrect demo login.');
-  return;
- }
- enter(users[email].name);
-};
+function showSignup(){ showAuth('signup'); }
+function showLogin(){ showAuth('login'); }
+function showAuth(which){$('signup').classList.toggle('hidden',which!=='signup');$('login').classList.toggle('hidden',which!=='login')}
+function enter(name){loadUser(name);$('auth').classList.add('hidden');$('website').classList.remove('hidden');$('welcome').textContent='Welcome, '+name+'! Keep your heart on fire for God.'}
+$('signup').addEventListener('submit',e=>{e.preventDefault();const name=$('name').value.trim();const email=$('email').value.trim().toLowerCase();const password=$('password').value;if(!name||!email||password.length<6)return;const profiles=readStore()._profiles||{};if(profiles[email]){alert('A preview profile already exists for this email. Please log in.');return}profiles[email]={name,password};const all=readStore();all._profiles=profiles;localStorage.setItem(STORE,JSON.stringify(all));enter(name)});
+$('login').addEventListener('submit',e=>{e.preventDefault();const email=$('loginEmail').value.trim().toLowerCase();const password=$('loginPassword').value;const profiles=readStore()._profiles||{};if(!profiles[email]||profiles[email].password!==password){alert('Preview profile not found or password does not match.');return}enter(profiles[email].name)});
 function guest(){enter('Guest')}
-function logout(){
- currentUser=null;
- $('website').classList.add('hidden');
- $('auth').classList.remove('hidden');
-}
-function openMenu(){
- $('menu').classList.add('open');
- $('overlay').classList.add('open');
-}
-function closeMenu(){
- $('menu').classList.remove('open');
- $('overlay').classList.remove('open');
-}
-function go(id){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- $(id).classList.add('active');
- closeMenu();
- window.scrollTo(0,0);
-}
-function saveVerse(){
- favorites.push('John 3:16');
- $('favorites').innerHTML=favorites.map(x=>'<p>'+x+'</p>').join('');
-}
-function savePrayer(){
- let t=$('prayerText').value.trim();
- if(!t)return alert('Write a prayer first.');
- prayers.push(t);
- $('prayers').innerHTML=prayers.map(x=>'<div class="card">'+escapeHTML(x)+'</div>').join('');
- $('prayerText').value='';
-}
-function saveJournal(){
- let t=$('journalText').value.trim();
- if(!t)return alert('Write an entry first.');
- entries.push($('journalTitle').value+': '+t);
- $('entries').innerHTML=entries.map(x=>'<div class="card">'+escapeHTML(x)+'</div>').join('');
- $('journalText').value='';
- $('journalTitle').value='';
-}
-function post(){
- let t=$('postText').value.trim();
- if(!t)return alert('Write a post first.');
- posts.push(t);
- $('posts').innerHTML=posts.map(x=>'<div class="card">'+escapeHTML(x)+'</div>').join('');
- $('postText').value='';
-}
-function quiz(correct){
- $('quizResult').textContent=correct?'Correct! Jonah was swallowed by a great fish.':'Try again!';
-}
-function answer(){
- let q=$('question').value.toLowerCase();
- if(!q.trim())return alert('Type a question first.');
- let a='Read the Bible, pray, and talk with a trusted Christian mentor.';
- if(q.includes('pray'))a='Prayer is talking with God. Read Matthew 6:9-13.';
- if(q.includes('jesus'))a='Read John 3:16 to learn about the love of God through Jesus.';
- if(q.includes('forgiv'))a='Read Ephesians 4:32 about forgiveness.';
- if(q.includes('salvation'))a='Read Romans 10:9-13 and John 3:16.';
- $('answerText').textContent=a;
-}
-function copyText(t){
- if(navigator.clipboard){
-  navigator.clipboard.writeText(t).then(()=>alert('Copied!')).catch(()=>alert(t));
- }else alert(t);
-}
-function escapeHTML(t){
- return String(t).replace(/[&<>"']/g,c=>({
- '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
- }[c]));
-}
-function clearDemo(){
- if(confirm('Clear all saved demo information?')){
-  favorites=[];prayers=[];entries=[];posts=[];
-  $('favorites').textContent='No saved verses yet.';
-  $('prayers').textContent='No prayers yet.';
-  $('entries').textContent='No entries yet.';
-  $('posts').textContent='No posts yet.';
- }
-}
+function logout(){$('website').classList.add('hidden');$('auth').classList.remove('hidden');showAuth('login');closeMenu()}
+function openMenu(){$('menu').classList.add('open');$('overlay').classList.add('open')}
+function closeMenu(){$('menu').classList.remove('open');$('overlay').classList.remove('open')}
+function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));$(id).classList.add('active');closeMenu();window.scrollTo({top:0,behavior:'smooth'})}
+function escapeHTML(t){return String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function renderList(id,items,empty,kind){const el=$(id);if(!items.length){el.className='empty';el.textContent=empty;return}el.className='';el.innerHTML=items.map((item,i)=>{const title=item.title||item.label||'';const body=item.text||item;return `<div class="item"><h3>${escapeHTML(title||kind)}</h3><p>${escapeHTML(body)}</p>${item.imageNames?.length?`<p class="small">Attached page images: ${item.imageNames.map(escapeHTML).join(', ')}</p>`:''}<div class="item-actions"><button class="secondary" onclick="deleteItem('${kind}',${i})">DELETE</button></div></div>`}).join('')}
+function renderAll(){renderList('favorites',data.favorites,'No saved verses yet.','verse');renderList('prayers',data.prayers,'No prayers yet.','prayer');renderList('entries',data.entries,'No entries yet.','entry');renderList('posts',data.posts,'No posts yet.','post');$('salvationSaved').textContent=data.reflection?'Your reflection is saved in this browser preview.':''}
+function deleteItem(kind,index){if(!confirm('Delete this item?'))return;const key={verse:'favorites',prayer:'prayers',entry:'entries',post:'posts'}[kind];if(!key)return;data[key].splice(index,1);writeStore();renderAll()}
+function saveVerse(text){if(data.favorites.some(x=>x.text===text))return alert('That verse is already saved.');data.favorites.push({title:'Saved Scripture',text});writeStore();renderAll();alert('Verse saved in this browser preview.')}
+function savePrayer(){const t=$('prayerText').value.trim();if(!t)return alert('Write a prayer first.');data.prayers.unshift({title:'Saved Prayer',text:t});writeStore();$('prayerText').value='';renderAll()}
+function saveJournal(){const t=$('journalText').value.trim();const title=$('journalTitle').value.trim()||'Journal Entry';if(!t&&!selectedJournalImages.length)return alert('Write an entry or select a page picture first.');data.entries.unshift({title,text:t||'Handwritten journal page attached.',imageNames:selectedJournalImages.map(x=>x.name),date:new Date().toLocaleDateString()});writeStore();$('journalText').value='';$('journalTitle').value='';$('journalImages').value='';$('journalImagePreview').innerHTML='';selectedJournalImages=[];renderAll();alert('Entry saved to My Journal → My Entries in this browser preview.')}
+function previewJournalImages(event){selectedJournalImages=Array.from(event.target.files||[]);const box=$('journalImagePreview');box.innerHTML='';selectedJournalImages.forEach(file=>{if(!file.type.startsWith('image/'))return;const img=document.createElement('img');img.className='file-preview';img.alt='Selected journal page preview';img.src=URL.createObjectURL(file);box.appendChild(img)})}
+function saveSermonToJournal(){const title=$('sermonTitle').value.trim()||'Church Service Notes';const text=$('sermonNotes').value.trim();if(!text)return alert('Prepare or write your notes before saving.');data.entries.unshift({title,text:'Church Service Notes\\n'+text,date:new Date().toLocaleDateString()});writeStore();renderAll();alert('Your sermon notes were saved to My Journal → My Entries.');go('journal')}
+function prepareSermonNotes(){const transcript=$('sermonTranscript').value.trim();const link=$('sermonLink').value.trim();const file=$('sermonFile').files[0];const style=$('noteStyle').value;if(!transcript){$('sermonStatus').textContent='No transcript was provided. Automatic video/audio transcription needs a connected media-processing service. You can paste a transcript to create a draft.';if(link||file){$('sermonStatus').textContent+=' The link/file has been selected, but this preview cannot access or transcribe it.'}return}const sentences=transcript.split(/(?<=[.!?])\\s+/).filter(Boolean);let intro='Sermon notes draft — prepared from the transcript you supplied.\\n\\n';let body;if(style==='simple'){body='MAIN MESSAGE\\n'+sentences.slice(0,3).join(' ')+'\\n\\nKEY POINTS\\n'+sentences.slice(3).map((s,i)=>(i+1)+'. '+s).join('\\n')}else if(style==='personal'){body='WHAT I HEARD\\n'+transcript+'\\n\\nPERSONAL REFLECTION\\nWhat stood out to me?\\n\\nWhat Scripture do I want to study more?\\n\\nHow can I apply this message?'}else{body='MAIN MESSAGE\\n'+(sentences[0]||'Add the main message here.')+'\\n\\nSERMON NOTES\\n'+sentences.slice(1).map((s,i)=>(i+1)+'. '+s).join('\\n')+'\\n\\nSCRIPTURE REFERENCES\\nAdd or verify the Bible references mentioned in the sermon.\\n\\nPERSONAL APPLICATION\\nWhat is one thing I can put into practice?'}$('sermonNotes').value=intro+body;$('sermonStatus').textContent='Draft created from the text you pasted. Please review it for accuracy before saving.'}
+function post(){const t=$('postText').value.trim();if(!t)return alert('Write a post first.');data.posts.unshift({title:'Community preview post',text:t});writeStore();$('postText').value='';renderAll()}
+function quiz(correct){$('quizResult').textContent=correct?'Correct! Jonah was swallowed by a great fish.':'Try again!'}
+function answer(){const q=$('question').value.toLowerCase().trim();if(!q)return alert('Type a question first.');let a='Consider reading the Bible, praying, and speaking with a trusted Christian mentor.';if(q.includes('pray'))a='Prayer is talking with God. You can praise Him, thank Him, ask for help, and share what is on your heart. Read Matthew 6:9–13.';else if(q.includes('jesus'))a='Read John 3:16 to learn about God’s love through Jesus. You can also read one of the Gospels to learn about His life and teachings.';else if(q.includes('forgiv'))a='Read Ephesians 4:32 about kindness and forgiveness.';else if(q.includes('salvation'))a='Read John 3:16 and Romans 10:9–13. A trusted pastor or Christian mentor can help you explore these passages.';$('answerText').textContent=a}
+function copyText(t){if(navigator.clipboard?.writeText){navigator.clipboard.writeText(t).then(()=>alert('Copied!')).catch(()=>alert(t))}else alert(t)}
+function clearDemo(){if(!confirm('Clear all saved preview information for this profile?'))return;data={favorites:[],prayers:[],entries:[],posts:[],reflection:''};writeStore();renderAll()}
+function setTextSize(size){document.body.style.fontSize=size}
+function findBible(){const ref=$('bibleReference').value.trim().toLowerCase();let text='This reference is not included in the sample library yet. A complete Bible search needs a licensed Bible text source.';if(ref==='john 3:16'||ref==='jn 3:16')text='John 3:16 — “For God so loved the world, that he gave his only begotten Son...” (KJV excerpt).';else if(ref==='philippians 4:13'||ref==='phil 4:13')text='Philippians 4:13 — “I can do all things through Christ which strengtheneth me.” (KJV).';$('bibleResult').className='item';$('bibleResult').textContent=text}
+function saveReflection(){const t=$('salvationReflection').value.trim();if(!t)return alert('Write a reflection first.');data.reflection=t;writeStore();renderAll();alert('Reflection saved in this browser preview.')}
+document.querySelectorAll('[data-challenge]').forEach(box=>box.addEventListener('change',()=>{const boxes=[...document.querySelectorAll('[data-challenge]')];$('challengeCount').textContent=boxes.filter(x=>x.checked).length+' of '+boxes.length+' challenges completed.'}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
+showAuth('signup');
 </script>
-
 </body>
 </html>
+
