@@ -21,13 +21,7 @@ label{display:block;font-weight:700;color:#f4d5b4}
 a{color:var(--gold)}
 .hidden{display:none!important}
 .fire{background:linear-gradient(90deg,#ffce65,#ff702b,#e33b24);-webkit-background-clip:text;background-clip:text;color:transparent}
-.auth{
- min-height:100vh;
- display:grid;
- place-items:center;
- padding:20px;
- background:radial-gradient(#572014,#090909 65%);
-}
+.auth{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(#572014,#090909 65%)}
 .auth .card{width:min(100%,440px)}
 .logo{text-align:center;font-size:35px;font-weight:900;line-height:1.2}
 .auth-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
@@ -73,7 +67,36 @@ footer p{margin:5px}
 hr{border:0;border-top:1px solid #523021;margin:18px 0}
 .file-preview{max-width:100%;max-height:260px;border-radius:10px;display:block;margin:10px 0}
 .topline{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-@media(max-width:520px){header{padding:9px}header button{padding:9px 11px;font-size:13px}main{padding:12px}.card{padding:15px}.auth-actions{grid-template-columns:1fr 1fr}}
+
+/* Bible-reader layout inspired by common Bible app patterns */
+.bible-toolbar{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bible-toolbar label{font-size:13px}
+.bible-reader{background:linear-gradient(180deg,#211712,#120e0c);border:1px solid #805033;border-radius:16px;padding:clamp(16px,4vw,28px);margin:14px 0;box-shadow:inset 0 0 24px #ff762b0c}
+.bible-reader-head{text-align:center;border-bottom:1px solid #70402c;padding-bottom:14px;margin-bottom:18px}
+.bible-reader-head h2{color:var(--gold);margin:4px 0}
+.bible-reading-text{font-family:Georgia,serif;font-size:20px;line-height:1.9;white-space:normal;color:#fff2e5;max-height:none;overflow:visible;overscroll-behavior:auto;padding:8px 12px 8px 4px}
+.bible-verse{display:block;margin:0 0 12px;padding:3px 6px;border-radius:8px}
+.bible-verse .verse-num{display:inline-block;min-width:25px;color:var(--gold);font-size:13px;font-weight:bold;vertical-align:super;margin-right:7px}
+.bible-reading-text .verse-num{color:var(--gold);font-size:13px;font-weight:bold;vertical-align:super;margin-right:5px}
+.bible-reader-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.bible-reader-actions button{flex:1 1 130px}
+.bible-nav{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:14px}
+.bible-nav button{flex:1}
+@media(max-width:520px){.bible-toolbar{grid-template-columns:1fr}.bible-reading-text{font-size:18px}}
+
+/* ON FIRE FOR GOD profile styling */
+.header-account{display:flex;align-items:center;gap:8px;min-width:0}
+.header-account-name{max-width:115px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;color:#ffe0b0}
+.header-avatar{width:36px;height:36px;flex:0 0 36px;border-radius:50%;object-fit:cover;border:2px solid var(--orange);box-shadow:0 0 10px #e33b2470;background:#211512}
+.profile-box{max-width:520px;margin:18px auto;padding:22px;text-align:center;border:1px solid var(--orange);border-radius:18px;background:radial-gradient(ellipse at top,#422016,#17100e 60%,#0b0908);box-shadow:0 0 18px #e33b2425,inset 0 0 24px #ff762b12}
+.profile-box h2{color:var(--gold);text-shadow:0 0 9px #e33b2470;margin-top:0}
+.profile-avatar{display:block;width:140px;height:140px;object-fit:cover;border-radius:50%;margin:12px auto 18px;border:4px solid var(--orange);box-shadow:0 0 0 3px #ffc45b55,0 0 22px #e33b2480;background:#211512}
+.profile-actions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}
+.profile-actions button{flex:0 1 auto}
+.profile-message{min-height:22px;color:#ffc45b;font-size:13px}
+.profile-file-label{display:inline-block;margin:6px;padding:11px 16px;border:1px solid #a94427;border-radius:10px;background:linear-gradient(135deg,#d93822,#fa762c);color:white;font-weight:700;cursor:pointer}
+.profile-file-label:hover{filter:brightness(1.12)}
+@media(max-width:520px){header{padding:9px}header button{padding:9px 11px;font-size:13px}main{padding:12px}.card{padding:15px}.auth-actions{grid-template-columns:1fr 1fr}.header-account-name{display:none}.profile-avatar{width:125px;height:125px}}
 </style>
 </head>
 <body>
@@ -82,38 +105,23 @@ hr{border:0;border-top:1px solid #523021;margin:18px 0}
   <div class="logo fire">✝ ON FIRE FOR GOD</div>
   <h2 style="text-align:center">WARRIOR FOR CHRIST 🔥</h2>
   <p style="text-align:center">Share God's Word. Grow in Faith.</p>
-
   <button onclick="showSignup()">SIGN UP</button>
   <button onclick="showLogin()">LOG IN</button>
-
   <form id="signup">
    <h2>Create Account</h2>
-   <label>Name</label>
-   <input id="name" required placeholder="Your name">
-   <label>Email</label>
-   <input id="email" type="email" required placeholder="Email address">
-   <label>Password</label>
-   <input id="password" type="password" minlength="6" required placeholder="Password">
+   <label>Name</label><input id="name" required placeholder="Your name">
+   <label>Email</label><input id="email" type="email" required placeholder="Email address">
+   <label>Password</label><input id="password" type="password" minlength="6" required placeholder="Password">
    <button type="submit">CREATE ACCOUNT</button>
   </form>
-
   <form id="login" class="hidden">
    <h2>Welcome Back!</h2>
-   <label>Email</label>
-   <input id="loginEmail" type="email" required>
-   <label>Password</label>
-   <input id="loginPassword" type="password" required>
+   <label>Email</label><input id="loginEmail" type="email" required>
+   <label>Password</label><input id="loginPassword" type="password" required>
    <button type="submit">LOG IN</button>
   </form>
-
-  <p style="text-align:center">
-   <button onclick="guest()">Preview as Guest</button>
-  </p>
-  <p class="small">
-   Demo accounts are stored only in this browser.
-   Do not use real passwords. Secure account services
-   must be connected before public launch.
-  </p>
+  <p style="text-align:center"><button onclick="guest()">Preview as Guest</button></p>
+  <p class="small">Demo accounts are stored only in this browser. Do not use real passwords. Secure account services must be connected before public launch.</p>
  </div>
 </div>
 
@@ -121,6 +129,7 @@ hr{border:0;border-top:1px solid #523021;margin:18px 0}
 <header>
  <button type="button" onclick="openMenu()" aria-label="Open navigation menu">☰ MENU</button>
  <strong class="fire">ON FIRE FOR GOD ✝</strong>
+ <div class="header-account"><img id="headerProfilePicture" class="header-avatar" alt="Profile picture"><span id="headerAccountName" class="header-account-name"></span></div>
  <button type="button" class="secondary" onclick="logout()">EXIT</button>
 </header>
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
@@ -136,88 +145,111 @@ hr{border:0;border-top:1px solid #523021;margin:18px 0}
  <div class="menu-group">Explore</div>
  <button onclick="go('quizzes')">🏆 Quizzes & Challenges</button><button onclick="go('worship')">🎵 Worship</button><button onclick="go('maps')">🗺 Bible Maps</button><button onclick="go('wallpapers')">🔥 Verse Wallpapers</button><button onclick="go('salvation')">❤️ Salvation Room</button><button onclick="go('ask')">💬 Ask ON FIRE FOR GOD</button>
  <div class="menu-group">Account</div>
- <button onclick="go('settings')">⚙ Settings</button><button onclick="go('about')">ℹ About</button>
+ <button onclick="go('progress')">📈 My Spiritual Progress</button><button onclick="go('settings')">⚙ Settings</button><button onclick="go('about')">ℹ About</button>
 </nav>
 <main>
 <section id="home" class="page active">
- <div class="hero">
-  <h1 class="fire">ON FIRE<br>FOR GOD</h1><h2>WARRIOR FOR CHRIST ✝</h2>
-  <p id="welcome">Welcome! Keep your heart on fire for God.</p>
-  <button onclick="go('bible')">OPEN THE BIBLE</button> <button onclick="go('prayer')">PRAY NOW</button>
- </div>
+ <div class="hero"><h1 class="fire">ON FIRE<br>FOR GOD</h1><h2>WARRIOR FOR CHRIST ✝</h2><p id="welcome">Welcome! Keep your heart on fire for God.</p><button onclick="go('bible')">OPEN THE BIBLE</button> <button onclick="go('prayer')">PRAY NOW</button></div>
  <div class="grid">
   <div class="card"><h2>Daily Bible Verse</h2><p class="verse">"I can do all things through Christ which strengtheneth me."</p><h3>Philippians 4:13</h3><button class="secondary" onclick="saveVerse('Philippians 4:13 — I can do all things through Christ which strengtheneth me.')">☆ Save Verse</button></div>
   <div class="card"><h2>Daily Encouragement</h2><p>Keep trusting God. Keep praying. Keep believing. God is with you through every season.</p><button onclick="go('lessons')">Read a Lesson</button></div>
  </div>
- <h2>Explore</h2><div class="grid">
-  <button class="link" onclick="go('bible')">📖 Bible</button><button class="link" onclick="go('prayer')">🙏 Prayer</button><button class="link" onclick="go('journal')">📓 Journal</button><button class="link" onclick="go('churchNotes')">🎥 Church Service Notes</button><button class="link" onclick="go('community')">🤝 Community</button><button class="link" onclick="go('quizzes')">🏆 Challenges</button><button class="link" onclick="go('salvation')">❤️ Salvation</button>
- </div>
+ <h2>Explore</h2><div class="grid"><button class="link" onclick="go('bible')">📖 Bible</button><button class="link" onclick="go('prayer')">🙏 Prayer</button><button class="link" onclick="go('journal')">📓 Journal</button><button class="link" onclick="go('churchNotes')">🎥 Church Service Notes</button><button class="link" onclick="go('community')">🤝 Community</button><button class="link" onclick="go('quizzes')">🏆 Challenges</button><button class="link" onclick="go('salvation')">❤️ Salvation</button></div>
 </section>
 
 <section id="bible" class="page">
  <h1>📖 The Holy Bible</h1>
- <div class="card"><h2>Scripture Reading</h2><p class="verse">"For God so loved the world, that he gave his only begotten Son."</p><h3>John 3:16</h3><button onclick="saveVerse('John 3:16 — For God so loved the world, that he gave his only begotten Son.')">☆ Save Verse</button><button class="secondary" onclick="copyText('John 3:16 — For God so loved the world, that he gave his only begotten Son.')">Copy Verse</button></div>
- <div class="card"><h2>Find a Bible Passage</h2><p class="muted">Choose a book and enter a chapter or reference. This starter preview contains sample passages only; a complete KJV library, search, and audio need a properly licensed Bible source.</p>
-  <label for="bibleBook">Bible Section</label><select id="bibleBook" class="green-select"><option>Old Testament</option><option>New Testament</option></select>
-  <label for="bibleReference">Book, chapter, or verse reference</label><input id="bibleReference" placeholder="Example: John 3:16">
-  <button onclick="findBible()">LOOK UP SAMPLE PASSAGE</button><div id="bibleResult" class="item empty">Enter a reference to see available sample guidance.</div>
+ <div class="card">
+  <div class="topline"><div><h2 class="fire">READ THE WORD</h2><p class="small">A simple Bible-reader layout for ON FIRE FOR GOD.</p></div><span class="pill">KING JAMES VERSION (KJV)</span></div>
+  <div class="bible-toolbar">
+   <div><label for="bibleTestament">Choose Testament</label><select id="bibleTestament" class="green-select" onchange="filterBibleBooks()"><option value="ALL" selected>All 66 Books</option><option value="OT">Old Testament (39 Books)</option><option value="NT">New Testament (27 Books)</option></select></div>
+   <div><label for="bibleBookSelect">Choose Book</label><select id="bibleBookSelect" onchange="loadBibleChapter()"></select></div>
+   <div><label for="bibleChapterSelect">Choose Chapter</label><select id="bibleChapterSelect" onchange="loadBibleChapter()"></select></div>
+   <div><label for="bibleFontSize">Reading Text Size</label><select id="bibleFontSize" onchange="changeBibleFont()"><option value="18">Small</option><option value="20" selected>Medium</option><option value="24">Large</option><option value="28">Extra Large</option></select></div>
+  </div>
+  <div class="bible-reader">
+   <div class="bible-reader-head"><div class="small">HOLY BIBLE · KING JAMES VERSION</div><h2 id="bibleReadingTitle">John 3</h2><div class="small" id="bibleReadingSubtitle">Read, reflect, and grow in God's Word</div></div>
+   <div id="bibleReadingText" class="bible-reading-text" aria-live="polite">Loading Bible passage…</div>
+   <div class="bible-reader-actions"><button onclick="saveCurrentBibleChapter()">☆ SAVE CHAPTER</button><button class="secondary" onclick="copyCurrentBibleChapter()">COPY PASSAGE</button></div>
+   <div class="bible-nav"><button class="secondary" onclick="moveBibleChapter(-1)">← PREVIOUS</button><button class="secondary" onclick="moveBibleChapter(1)">NEXT →</button></div>
+  </div>
+  <div class="notice">Choose from all 66 books: Genesis through Malachi in the Old Testament, and Matthew through Revelation in the New Testament. You can show all books together or filter by testament. The complete King James Version chapter loads from a free public Bible text service when you are connected to the internet. Scroll down the page to read every verse.</div>
  </div>
- <div class="card"><h2>My Favorite Verses</h2><div id="favorites" class="empty">No saved verses yet.</div></div>
+ <div class="card"><h2>🔎 Find a Bible Passage</h2><label for="bibleReference">Search a reference (sample passages)</label><div class="row"><input id="bibleReference" placeholder="Example: John 3:16"><button onclick="findBible()">LOOK UP</button></div><div id="bibleResult" class="item empty">Try John 3:16, Psalm 23, or Philippians 4.</div></div>
+ <div class="card"><h2>⭐ My Favorite Verses</h2><div id="favorites" class="empty">No saved verses yet.</div></div>
 </section>
-
 <section id="lessons" class="page"><h1>✝ Bible Lessons</h1>
- <div class="card"><h2>Who Is Jesus?</h2><p>Jesus is the Son of God. He came to show God's love and bring salvation.</p><p>Read John 3:16.</p></div>
- <div class="card"><h2>How To Pray</h2><p>Prayer is talking with God. Thank Him, praise Him, and share what is on your heart.</p><p>Read Matthew 6:9-13.</p></div>
- <div class="card"><h2>David and Goliath</h2><p>David trusted God when he faced a giant.</p><p>Read 1 Samuel 17.</p></div>
- <div class="card"><h2>Forgiveness</h2><p>Jesus teaches us to forgive others and show love.</p><p>Read Ephesians 4:32.</p></div>
-</section>
-
-<section id="prayer" class="page"><h1>🙏 Prayer Center</h1>
- <div class="card"><h2>Write Your Prayer</h2><textarea id="prayerText" rows="6" placeholder="Dear God..."></textarea><button onclick="savePrayer()">SAVE PRAYER</button></div>
- <div class="card"><h2>My Saved Prayers</h2><div id="prayers" class="empty">No prayers yet.</div></div>
- <p class="small">Preview entries are stored in this browser only.</p>
-</section>
-
-<section id="journal" class="page"><h1>📓 My Journal</h1>
- <div class="card"><h2>Write Your Thoughts</h2><label for="journalTitle">Entry title</label><input id="journalTitle" placeholder="Entry title"><label for="journalText">Your journal entry</label><textarea id="journalText" rows="7" placeholder="What did you learn about God today?"></textarea>
- <label for="journalImages">Add pictures of handwritten journal pages</label><input id="journalImages" type="file" accept="image/*" multiple onchange="previewJournalImages(event)"><div id="journalImagePreview"></div>
- <p class="small">Image-to-text handwriting recognition requires an OCR service. You can attach page pictures in this preview, but automatic reading is not connected yet.</p>
- <button onclick="saveJournal()">SAVE ENTRY</button></div>
- <div class="card"><h2>My Entries</h2><div id="entries" class="empty">No entries yet.</div></div>
-</section>
-
-<section id="churchNotes" class="page"><h1>🎥 Church Service Notes</h1>
- <div class="card"><h2>Turn a Missed Service into Notes</h2><p>Paste a church livestream or sermon video link, or select a video/audio file if your device supports it. The connected AI service will need access to the media or a transcript before it can create accurate notes.</p>
- <label for="sermonLink">Livestream or video link</label><input id="sermonLink" type="url" placeholder="https://...">
- <label for="sermonFile">Or choose a sermon recording</label><input id="sermonFile" type="file" accept="video/*,audio/*">
- <label for="sermonTranscript">Transcript or sermon text (optional)</label><textarea id="sermonTranscript" rows="6" placeholder="Paste a transcript here to prepare notes from the text..."></textarea>
- <label for="noteStyle">Preferred note style</label><select id="noteStyle"><option value="organized">Organized headings and bullet points</option><option value="detailed">Detailed notes</option><option value="simple">Simple and easy to read</option><option value="personal">Personal reflection style</option></select>
- <button onclick="prepareSermonNotes()">PREPARE NOTES</button><p id="sermonStatus" class="small" aria-live="polite"></p>
- <div class="notice">AI video processing is not connected in this HTML preview. For now, you can paste a transcript and create a clearly labeled draft. A secure AI/backend connection is required for automatic video transcription and sermon analysis.</div>
- </div>
- <div class="card"><h2>Review Your Sermon Notes</h2><label for="sermonTitle">Service / sermon title</label><input id="sermonTitle" placeholder="Sunday morning service">
- <label for="sermonNotes">Your notes</label><textarea id="sermonNotes" rows="10" placeholder="Your sermon notes will appear here. You can edit them before saving."></textarea>
- <button onclick="saveSermonToJournal()">SAVE TO MY JOURNAL → MY ENTRIES</button></div>
-</section>
-
+ <div class="card" id="dailyBibleStudy"><h2>🔥 Daily Bible Lesson</h2><p class="small" id="dailyLessonDate"></p><h3 id="dailyLessonTitle">Daily lesson</h3><p id="dailyLessonVerse" class="verse"></p><p id="dailyLessonText"></p><h3>Put It Into Practice</h3><p id="dailyLessonAction"></p><h3>Think About It</h3><p id="dailyLessonQuestion"></p><button onclick="saveDailyLesson()">SAVE LESSON TO MY JOURNAL</button></div>
+ <div class="card"><h2>📅 Bible Reading Plan</h2><p>Use this simple seven-day reading plan and mark each day as you finish.</p><div id="readingPlan"></div><p id="readingPlanCount" class="small"></p></div>
+ <div class="card"><h2>📝 My Scripture Notes</h2><label for="scriptureNoteRef">Bible reference</label><input id="scriptureNoteRef" placeholder="Example: Psalm 23:1"><label for="scriptureNoteText">My notes</label><textarea id="scriptureNoteText" placeholder="What did this Scripture teach you?"></textarea><button onclick="saveScriptureNote()">SAVE SCRIPTURE NOTE</button><div id="scriptureNotes"></div></div>
+ <div class="card"><h2>🧠 Daily Bible Quiz</h2><p>Who was swallowed by a great fish?</p><button onclick="quiz(true)">Jonah</button><button class="secondary" onclick="quiz(false)">Moses</button><p id="quizResult" aria-live="polite"></p></div>
+ <div class="card"><h2>🔥 Daily Bible Challenge</h2><p>Complete these faith-building challenges today.</p><label class="checkline"><input type="checkbox" data-challenge="Read one Bible chapter">Read one Bible chapter.</label><label class="checkline"><input type="checkbox" data-challenge="Pray for someone">Pray for someone.</label><label class="checkline"><input type="checkbox" data-challenge="Encourage a friend">Encourage a friend.</label><label class="checkline"><input type="checkbox" data-challenge="Thank God for three things">Thank God for three things.</label><p id="challengeCount" class="small">0 of 4 challenges completed.</p></div>
+ <div class="card"><h2>Who Is Jesus?</h2><p>Jesus is the Son of God. He came to show God's love and bring salvation.</p><p>Read John 3:16.</p></div><div class="card"><h2>How To Pray</h2><p>Prayer is talking with God. Thank Him, praise Him, and share what is on your heart.</p><p>Read Matthew 6:9-13.</p></div><div class="card"><h2>David and Goliath</h2><p>David trusted God when he faced a giant.</p><p>Read 1 Samuel 17.</p></div><div class="card"><h2>Forgiveness</h2><p>Jesus teaches us to forgive others and show love.</p><p>Read Ephesians 4:32.</p></div></section>
+<section id="prayer" class="page"><h1>🙏 Prayer Center</h1><div class="card"><h2>Write Your Prayer</h2><textarea id="prayerText" rows="6" placeholder="Dear God..."></textarea><button onclick="savePrayer()">SAVE PRAYER</button></div><div class="card"><h2>My Saved Prayers</h2><div id="prayers" class="empty">No prayers yet.</div></div><p class="small">Preview entries are stored in this browser only.</p></section>
+<section id="journal" class="page"><h1>📓 My Journal</h1><div class="card"><h2>Write Your Thoughts</h2><label for="journalTitle">Entry title</label><input id="journalTitle" placeholder="Entry title"><label for="journalText">Your journal entry</label><textarea id="journalText" rows="7" placeholder="What did you learn about God today?"></textarea><label for="journalImages">Add pictures of handwritten journal pages</label><input id="journalImages" type="file" accept="image/*" multiple onchange="previewJournalImages(event)"><div id="journalImagePreview"></div><p class="small">Image-to-text handwriting recognition requires an OCR service. You can attach page pictures in this preview, but automatic reading is not connected yet.</p><button onclick="saveJournal()">SAVE ENTRY</button></div><div class="card"><h2>My Entries</h2><div id="entries" class="empty">No entries yet.</div></div></section>
+<section id="churchNotes" class="page"><h1>🎥 Church Service Notes</h1><div class="card"><h2>Turn a Missed Service into Notes</h2><p>Paste a church livestream or sermon video link, or select a video/audio file if your device supports it. The connected AI service will need access to the media or a transcript before it can create accurate notes.</p><label for="sermonLink">Livestream or video link</label><input id="sermonLink" type="url" placeholder="https://..."><label for="sermonFile">Or choose a sermon recording</label><input id="sermonFile" type="file" accept="video/*,audio/*"><label for="sermonTranscript">Transcript or sermon text (optional)</label><textarea id="sermonTranscript" rows="6" placeholder="Paste a transcript here to prepare notes from the text..."></textarea><label for="noteStyle">Preferred note style</label><select id="noteStyle"><option value="organized">Organized headings and bullet points</option><option value="detailed">Detailed notes</option><option value="simple">Simple and easy to read</option><option value="personal">Personal reflection style</option></select><button onclick="prepareSermonNotes()">PREPARE NOTES</button><p id="sermonStatus" class="small" aria-live="polite"></p><div class="notice">AI video processing is not connected in this HTML preview. For now, you can paste a transcript and create a clearly labeled draft. A secure AI/backend connection is required for automatic video transcription and sermon analysis. Nothing is being sent to an AI service from this page.</div></div><div class="card"><h2>Review Your Sermon Notes</h2><label for="sermonTitle">Service / sermon title</label><input id="sermonTitle" placeholder="Sunday morning service"><label for="sermonNotes">Your notes</label><textarea id="sermonNotes" rows="10" placeholder="Your sermon notes will appear here. You can edit them before saving."></textarea><button onclick="saveSermonToJournal()">SAVE TO MY JOURNAL → MY ENTRIES</button></div></section>
 <section id="community" class="page"><h1>🤝 Christian Community</h1><div class="card"><h2>Share Encouragement</h2><textarea id="postText" placeholder="Share a Bible verse or encouragement..."></textarea><button onclick="post()">SHARE PREVIEW POST</button></div><div class="card"><h2>Community Posts</h2><div id="posts" class="empty">No posts yet.</div></div><p class="small">Local preview only. Public posting requires secure accounts, moderation, reporting, blocking, and abuse prevention.</p></section>
-
 <section id="messenger" class="page"><h1>✉ Messenger</h1><div class="card"><h2>Private Messages</h2><p>Private messaging is planned for this section.</p><p>Secure account identity, private message storage, access rules, and reporting/blocking controls must be connected before real messages can be sent.</p><span class="pill">Backend connection required</span></div></section>
-
-<section id="quizzes" class="page"><h1>🏆 Quizzes & Challenges</h1><div class="card"><h2>Bible Quiz</h2><p>Who was swallowed by a great fish?</p><button onclick="quiz(true)">Jonah</button><button class="secondary" onclick="quiz(false)">Moses</button><p id="quizResult" aria-live="polite"></p></div><div class="card"><h2>Daily Challenges</h2><label class="checkline"><input type="checkbox" data-challenge="Read one Bible chapter">Read one Bible chapter.</label><label class="checkline"><input type="checkbox" data-challenge="Pray for someone">Pray for someone.</label><label class="checkline"><input type="checkbox" data-challenge="Encourage a friend">Encourage a friend.</label><label class="checkline"><input type="checkbox" data-challenge="Thank God for three things">Thank God for three things.</label><p id="challengeCount" class="small">0 of 4 challenges completed.</p></div></section>
-
-<section id="worship" class="page"><h1>🎵 Worship</h1><div class="card"><h2>Praise God!</h2><p>Take time to worship God and thank Him for His blessings.</p><p class="verse">"O come, let us sing unto the LORD."</p><h3>Psalm 95:1</h3><p class="small">Music and audio playback can be added through properly licensed worship resources.</p></div></section>
-
-<section id="maps" class="page"><h1>🗺 Bible Maps</h1><div class="card"><h2>Important Bible Places</h2><p>📍 Jerusalem</p><p>📍 Bethlehem</p><p>📍 Mount Sinai</p><p>📍 Sea of Galilee</p><p>Explore the places where important Bible events happened. Interactive maps and historical layers can be connected in a later build.</p></div></section>
-
-<section id="wallpapers" class="page"><h1>🔥 Verse Wallpapers</h1><div class="card"><h2 class="fire">BE STRONG AND COURAGEOUS</h2><p>Joshua 1:9</p><button onclick="copyText('Joshua 1:9')">Copy Verse</button></div><div class="card"><h2 class="fire">THE LORD IS MY SHEPHERD</h2><p>Psalm 23:1</p><button onclick="copyText('Psalm 23:1')">Copy Verse</button></div></section>
-
+<section id="quizzes" class="page"><h1>🏆 Quizzes & Challenges</h1><div class="card"><h2>Bible Quiz Center</h2><p>Your Daily Bible Quiz and Daily Bible Challenge are now on the Bible Lessons page.</p><button onclick="go('lessons')">GO TO DAILY BIBLE LESSONS</button></div></section>
+<section id="worship" class="page"><h1>🎵 Worship</h1>
+ <div class="card"><h2 class="fire">PRAISE GOD!</h2><p>Take time to worship God and thank Him for His blessings.</p><p class="verse">"O come, let us sing unto the LORD."</p><h3>Psalm 95:1</h3>
+  <p class="small">Add links to songs you are allowed to access. The website opens the music service; it does not copy or host copyrighted recordings.</p>
+ </div>
+ <div class="card"><h2>➕ Add a Worship Song</h2><label for="songTitle">Song title</label><input id="songTitle" placeholder="Song title">
+  <label for="songArtist">Artist / worship team</label><input id="songArtist" placeholder="Artist name">
+  <label for="songLink">Song link (YouTube, Spotify, Apple Music, etc.)</label><input id="songLink" type="url" placeholder="https://...">
+  <button onclick="addWorshipSong()">ADD TO MY WORSHIP LIST</button>
+ </div>
+ <div class="card"><h2>❤️ My Worship Songs</h2><div id="worshipSongs" class="empty">You have not added any songs yet.</div></div>
+</section>
+<section id="maps" class="page"><h1>🗺 Bible Maps</h1>
+ <div class="notice">Explore modern map locations connected with Bible history. Modern map locations are approximate and do not replace historical Bible atlases.</div>
+ <div class="grid">
+  <div class="card"><h2>Bible Lands</h2><p>Explore the regions of Israel, Jordan, Egypt, Lebanon, Syria, and surrounding Bible lands.</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Holy+Land+Middle+East">OPEN BIBLE LANDS MAP ↗</a></div>
+  <div class="card"><h2>Jerusalem</h2><p>Important city in the life of David, the kings of Judah, Jesus, and the early church.</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Jerusalem">OPEN JERUSALEM MAP ↗</a></div>
+  <div class="card"><h2>Bethlehem</h2><p>Known as the birthplace of Jesus (Matthew 2; Luke 2).</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Bethlehem">OPEN BETHLEHEM MAP ↗</a></div>
+  <div class="card"><h2>Sea of Galilee</h2><p>Where Jesus taught, called disciples, and performed miracles (Mark 4–6).</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Sea+of+Galilee">OPEN SEA OF GALILEE MAP ↗</a></div>
+  <div class="card"><h2>Mount Sinai</h2><p>Traditionally associated with Moses receiving the Ten Commandments (Exodus 19–20).</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Mount+Sinai+Egypt">OPEN MOUNT SINAI MAP ↗</a></div>
+  <div class="card"><h2>Jordan River</h2><p>Connected with Israel's entry into the Promised Land and Jesus' baptism.</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Jordan+River">OPEN JORDAN RIVER MAP ↗</a></div>
+  <div class="card"><h2>Paul's Missionary Journeys</h2><p>Explore cities connected with Paul's travels, including Antioch, Ephesus, Corinth, and Rome.</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Paul+missionary+journeys+Bible+map">EXPLORE PAUL'S JOURNEYS ↗</a></div>
+  <div class="card"><h2>Exodus Route</h2><p>Explore traditional locations associated with the Exodus story. Exact route locations are debated.</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Exodus+route+Bible+map">EXPLORE EXODUS MAP ↗</a></div>
+ </div>
+</section>
+<section id="wallpapers" class="page"><h1>🔥 Bible Verse Wallpapers</h1>
+ <div class="card"><p>Make a fiery ON FIRE FOR GOD verse wallpaper and save it to your device. You can then set it as your phone's lock-screen wallpaper.</p>
+  <label for="wallpaperVerse">Bible verse</label><select id="wallpaperVerse"><option value="Be strong and of a good courage. — Joshua 1:9">Joshua 1:9 — Be strong and courageous</option><option value="The LORD is my shepherd; I shall not want. — Psalm 23:1">Psalm 23:1 — The Lord is my shepherd</option><option value="I can do all things through Christ which strengtheneth me. — Philippians 4:13">Philippians 4:13 — I can do all things</option><option value="For God so loved the world. — John 3:16">John 3:16 — For God so loved the world</option></select>
+  <button onclick="downloadVerseWallpaper()">CREATE & DOWNLOAD WALLPAPER</button>
+  <p class="small">A website cannot directly change your phone's lock screen or install a real home-screen widget. Download the image and set it as wallpaper in your phone settings.</p>
+  <canvas id="wallpaperCanvas" width="1080" height="1920" class="file-preview" style="width:min(100%,320px);height:auto;margin:16px auto;background:#100b0a"></canvas>
+ </div>
+</section>
 <section id="salvation" class="page"><h1>❤️ Salvation Room</h1><div class="card"><h2>God Loves You</h2><p>Christians believe salvation is God's gift through Jesus Christ.</p><p>Read John 3:16, Romans 5:8, and Romans 10:9-13.</p><h2>Follow Jesus</h2><p>Learn about Jesus, pray, read the Bible, and grow in faith. You can also speak with a trusted pastor or Christian mentor.</p></div><div class="card"><h2>My Next Steps</h2><p>Use these prompts for personal reflection. Your answers stay in this browser preview.</p><textarea id="salvationReflection" placeholder="What would you like to talk to God about?"></textarea><button onclick="saveReflection()">SAVE PRIVATE PREVIEW REFLECTION</button><div id="salvationSaved"></div></div></section>
+<section id="ask" class="page"><h1>💬 Ask ON FIRE FOR GOD</h1><div class="card"><h2>What Is Your Question?</h2><textarea id="question" placeholder="Ask about God, Jesus, faith, or prayer..."></textarea><button onclick="answer()">ASK</button><p id="answerText" aria-live="polite"></p></div><p class="notice">Ask ON FIRE FOR GOD is shown as a preview. It is not connected to a live AI model yet. A secure server-side AI connection is required; never put a private API key in this public GitHub Pages file. Questions here are not automatically saved to your journal.</p></section>
 
-<section id="ask" class="page"><h1>💬 Ask ON FIRE FOR GOD</h1><div class="card"><h2>What Is Your Question?</h2><textarea id="question" placeholder="Ask about God, Jesus, faith, or prayer..."></textarea><button onclick="answer()">ASK</button><p id="answerText" aria-live="polite"></p></div><p class="small">This preview uses prepared guidance, not a live AI assistant. A real AI answer service must be connected separately. Questions here are not automatically saved to your journal.</p></section>
-
-<section id="settings" class="page"><h1>⚙ Settings</h1><div class="card"><h2>Reading Settings</h2><label for="textSize">Text Size</label><select id="textSize" onchange="setTextSize(this.value)"><option value="16px">Normal</option><option value="19px">Large</option><option value="14px">Small</option></select><h2>Privacy & Data</h2><p>Preview information is stored in this browser and is not a secure private account system.</p><button class="danger" onclick="clearDemo()">CLEAR PREVIEW ENTRIES</button></div></section>
-
+<section id="progress" class="page"><h1>📈 My Spiritual Progress</h1>
+ <div class="card"><h2>My Faith Journey</h2><p>Track the Bible reading plan, daily challenges, saved verses, prayers, and journal entries you complete in this browser.</p>
+  <div id="progressSummary"></div><button onclick="refreshProgress()">UPDATE MY PROGRESS</button>
+ </div>
+ <div class="card"><h2>My Faith Goals</h2><label for="faithGoal">A goal I want to work toward</label><input id="faithGoal" placeholder="Example: Read one Bible chapter each day">
+  <button onclick="saveFaithGoal()">SAVE MY GOAL</button><p id="savedFaithGoal" class="small"></p>
+ </div>
+</section>
+<section id="settings" class="page">
+ <h1>⚙ Settings</h1>
+ <div class="profile-box">
+  <h2>🔥 MY ON FIRE FOR GOD PROFILE 🔥</h2>
+  <img id="profilePicture" class="profile-avatar" alt="Your profile picture">
+  <h3 id="profileDisplayName">My Profile</h3>
+  <p class="small">Choose a picture that represents you. It will appear beside your account name.</p>
+  <div class="profile-actions">
+   <label class="profile-file-label" for="profileUpload">📷 Choose Profile Picture</label>
+   <input id="profileUpload" type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+   <button type="button" class="secondary" onclick="removeProfilePicture()">REMOVE PICTURE</button>
+  </div>
+  <p id="profileMessage" class="profile-message" aria-live="polite">Your picture is saved to this browser profile.</p>
+ </div>
+ <div class="card"><h2>Reading Settings</h2><label for="textSize">Text Size</label><select id="textSize" onchange="setTextSize(this.value)"><option value="16px">Normal</option><option value="19px">Large</option><option value="14px">Small</option></select><h2>Privacy & Data</h2><p>Preview information, profile pictures, worship lists, notes, and progress are stored in this browser only. This is not secure cloud account storage and does not sync between devices.</p><button class="danger" onclick="clearDemo()">CLEAR PREVIEW ENTRIES</button></div>
+</section>
 <section id="about" class="page"><h1>ℹ About Us</h1><div class="card"><h2 class="fire">ON FIRE FOR GOD</h2><h3>WARRIOR FOR CHRIST ✝</h3><p>Our mission is to share God's Word, encourage people, and help everyone grow in their faith.</p><p>Created by Colton Payne, with help from God.</p><h2>🔥 Keep Your Faith On Fire! 🔥</h2></div></section>
 </main>
 <footer>ON FIRE FOR GOD ✝ WARRIOR FOR CHRIST 🔥<p>Let your light so shine before men. — Matthew 5:16</p></footer>
@@ -227,46 +259,145 @@ hr{border:0;border-top:1px solid #523021;margin:18px 0}
 'use strict';
 const $=id=>document.getElementById(id);
 const STORE='offg_preview_v2';
+const DEFAULT_AVATAR='data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffc45b"/><stop offset=".55" stop-color="#ff762b"/><stop offset="1" stop-color="#e33b24"/></linearGradient></defs><rect width="140" height="140" rx="70" fill="#211512"/><circle cx="70" cy="70" r="64" fill="none" stroke="url(#g)" stroke-width="4"/><path d="M70 28v84M49 49h42" stroke="url(#g)" stroke-width="8" stroke-linecap="round"/></svg>');
 let currentUser='Guest';
-let data={favorites:[],prayers:[],entries:[],posts:[],reflection:''};
+let data={favorites:[],prayers:[],entries:[],posts:[],reflection:'',profilePic:'',worshipSongs:[],scriptureNotes:[],readingPlanDone:[],faithGoal:''};
 let selectedJournalImages=[];
-function readStore(){try{return JSON.parse(localStorage.getItem(STORE)||'{}')}catch{return {}}}
-function writeStore(){try{const all=readStore();all[currentUser]=data;localStorage.setItem(STORE,JSON.stringify(all))}catch(e){alert('This browser could not save the preview data. You can still use the page during this visit.')}}
-function loadUser(name){currentUser=name;const all=readStore();data=all[name]||{favorites:[],prayers:[],entries:[],posts:[],reflection:''};renderAll()}
 
-function showSignup(){ showAuth('signup'); }
-function showLogin(){ showAuth('login'); }
+function readStore(){try{return JSON.parse(localStorage.getItem(STORE)||'{}')}catch{return {}}}
+function writeStore(){try{const all=readStore();all[currentUser]=data;localStorage.setItem(STORE,JSON.stringify(all));return true}catch(e){alert('The browser could not save this information. The picture may be too large or browser storage may be full.');return false}}
+function loadUser(name){currentUser=name;const all=readStore();data=all[name]||{favorites:[],prayers:[],entries:[],posts:[],reflection:'',profilePic:'',worshipSongs:[],scriptureNotes:[],readingPlanDone:[],faithGoal:''};data.profilePic=data.profilePic||'';data.favorites=data.favorites||[];data.prayers=data.prayers||[];data.entries=data.entries||[];data.posts=data.posts||[];data.worshipSongs=data.worshipSongs||[];data.scriptureNotes=data.scriptureNotes||[];data.readingPlanDone=data.readingPlanDone||[];data.faithGoal=data.faithGoal||'';renderAll()}
+function showSignup(){showAuth('signup')}
+function showLogin(){showAuth('login')}
 function showAuth(which){$('signup').classList.toggle('hidden',which!=='signup');$('login').classList.toggle('hidden',which!=='login')}
-function enter(name){loadUser(name);$('auth').classList.add('hidden');$('website').classList.remove('hidden');$('welcome').textContent='Welcome, '+name+'! Keep your heart on fire for God.'}
+function enter(name){loadUser(name);$('auth').classList.add('hidden');$('website').classList.remove('hidden');$('welcome').textContent='Welcome, '+name+'! Keep your heart on fire for God.';renderProfilePicture()}
 $('signup').addEventListener('submit',e=>{e.preventDefault();const name=$('name').value.trim();const email=$('email').value.trim().toLowerCase();const password=$('password').value;if(!name||!email||password.length<6)return;const profiles=readStore()._profiles||{};if(profiles[email]){alert('A preview profile already exists for this email. Please log in.');return}profiles[email]={name,password};const all=readStore();all._profiles=profiles;localStorage.setItem(STORE,JSON.stringify(all));enter(name)});
 $('login').addEventListener('submit',e=>{e.preventDefault();const email=$('loginEmail').value.trim().toLowerCase();const password=$('loginPassword').value;const profiles=readStore()._profiles||{};if(!profiles[email]||profiles[email].password!==password){alert('Preview profile not found or password does not match.');return}enter(profiles[email].name)});
 function guest(){enter('Guest')}
 function logout(){$('website').classList.add('hidden');$('auth').classList.remove('hidden');showAuth('login');closeMenu()}
 function openMenu(){$('menu').classList.add('open');$('overlay').classList.add('open')}
 function closeMenu(){$('menu').classList.remove('open');$('overlay').classList.remove('open')}
-function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));$(id).classList.add('active');closeMenu();window.scrollTo({top:0,behavior:'smooth'})}
+function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));$(id).classList.add('active');closeMenu();window.scrollTo({top:0,behavior:'smooth'});if(id==='settings')renderProfilePicture();if(id==='progress')refreshProgress()}
 function escapeHTML(t){return String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function renderList(id,items,empty,kind){const el=$(id);if(!items.length){el.className='empty';el.textContent=empty;return}el.className='';el.innerHTML=items.map((item,i)=>{const title=item.title||item.label||'';const body=item.text||item;return `<div class="item"><h3>${escapeHTML(title||kind)}</h3><p>${escapeHTML(body)}</p>${item.imageNames?.length?`<p class="small">Attached page images: ${item.imageNames.map(escapeHTML).join(', ')}</p>`:''}<div class="item-actions"><button class="secondary" onclick="deleteItem('${kind}',${i})">DELETE</button></div></div>`}).join('')}
-function renderAll(){renderList('favorites',data.favorites,'No saved verses yet.','verse');renderList('prayers',data.prayers,'No prayers yet.','prayer');renderList('entries',data.entries,'No entries yet.','entry');renderList('posts',data.posts,'No posts yet.','post');$('salvationSaved').textContent=data.reflection?'Your reflection is saved in this browser preview.':''}
+function renderAll(){renderList('favorites',data.favorites,'No saved verses yet.','verse');renderList('prayers',data.prayers,'No prayers yet.','prayer');renderList('entries',data.entries,'No entries yet.','entry');renderList('posts',data.posts,'No posts yet.','post');$('salvationSaved').textContent=data.reflection?'Your reflection is saved in this browser preview.':'';renderProfilePicture();if($('bibleBookSelect')&&!$('bibleBookSelect').options.length)filterBibleBooks();renderDailyLesson();renderReadingPlan();renderScriptureNotes();renderWorshipSongs();refreshProgress();$('savedFaithGoal').textContent=data.faithGoal?'My goal: '+data.faithGoal:''}
 function deleteItem(kind,index){if(!confirm('Delete this item?'))return;const key={verse:'favorites',prayer:'prayers',entry:'entries',post:'posts'}[kind];if(!key)return;data[key].splice(index,1);writeStore();renderAll()}
 function saveVerse(text){if(data.favorites.some(x=>x.text===text))return alert('That verse is already saved.');data.favorites.push({title:'Saved Scripture',text});writeStore();renderAll();alert('Verse saved in this browser preview.')}
 function savePrayer(){const t=$('prayerText').value.trim();if(!t)return alert('Write a prayer first.');data.prayers.unshift({title:'Saved Prayer',text:t});writeStore();$('prayerText').value='';renderAll()}
 function saveJournal(){const t=$('journalText').value.trim();const title=$('journalTitle').value.trim()||'Journal Entry';if(!t&&!selectedJournalImages.length)return alert('Write an entry or select a page picture first.');data.entries.unshift({title,text:t||'Handwritten journal page attached.',imageNames:selectedJournalImages.map(x=>x.name),date:new Date().toLocaleDateString()});writeStore();$('journalText').value='';$('journalTitle').value='';$('journalImages').value='';$('journalImagePreview').innerHTML='';selectedJournalImages=[];renderAll();alert('Entry saved to My Journal → My Entries in this browser preview.')}
 function previewJournalImages(event){selectedJournalImages=Array.from(event.target.files||[]);const box=$('journalImagePreview');box.innerHTML='';selectedJournalImages.forEach(file=>{if(!file.type.startsWith('image/'))return;const img=document.createElement('img');img.className='file-preview';img.alt='Selected journal page preview';img.src=URL.createObjectURL(file);box.appendChild(img)})}
-function saveSermonToJournal(){const title=$('sermonTitle').value.trim()||'Church Service Notes';const text=$('sermonNotes').value.trim();if(!text)return alert('Prepare or write your notes before saving.');data.entries.unshift({title,text:'Church Service Notes\\n'+text,date:new Date().toLocaleDateString()});writeStore();renderAll();alert('Your sermon notes were saved to My Journal → My Entries.');go('journal')}
-function prepareSermonNotes(){const transcript=$('sermonTranscript').value.trim();const link=$('sermonLink').value.trim();const file=$('sermonFile').files[0];const style=$('noteStyle').value;if(!transcript){$('sermonStatus').textContent='No transcript was provided. Automatic video/audio transcription needs a connected media-processing service. You can paste a transcript to create a draft.';if(link||file){$('sermonStatus').textContent+=' The link/file has been selected, but this preview cannot access or transcribe it.'}return}const sentences=transcript.split(/(?<=[.!?])\\s+/).filter(Boolean);let intro='Sermon notes draft — prepared from the transcript you supplied.\\n\\n';let body;if(style==='simple'){body='MAIN MESSAGE\\n'+sentences.slice(0,3).join(' ')+'\\n\\nKEY POINTS\\n'+sentences.slice(3).map((s,i)=>(i+1)+'. '+s).join('\\n')}else if(style==='personal'){body='WHAT I HEARD\\n'+transcript+'\\n\\nPERSONAL REFLECTION\\nWhat stood out to me?\\n\\nWhat Scripture do I want to study more?\\n\\nHow can I apply this message?'}else{body='MAIN MESSAGE\\n'+(sentences[0]||'Add the main message here.')+'\\n\\nSERMON NOTES\\n'+sentences.slice(1).map((s,i)=>(i+1)+'. '+s).join('\\n')+'\\n\\nSCRIPTURE REFERENCES\\nAdd or verify the Bible references mentioned in the sermon.\\n\\nPERSONAL APPLICATION\\nWhat is one thing I can put into practice?'}$('sermonNotes').value=intro+body;$('sermonStatus').textContent='Draft created from the text you pasted. Please review it for accuracy before saving.'}
+function saveSermonToJournal(){const title=$('sermonTitle').value.trim()||'Church Service Notes';const text=$('sermonNotes').value.trim();if(!text)return alert('Prepare or write your notes before saving.');data.entries.unshift({title,text:'Church Service Notes\n'+text,date:new Date().toLocaleDateString()});writeStore();renderAll();alert('Your sermon notes were saved to My Journal → My Entries.');go('journal')}
+function prepareSermonNotes(){const transcript=$('sermonTranscript').value.trim();const link=$('sermonLink').value.trim();const file=$('sermonFile').files[0];const style=$('noteStyle').value;if(!transcript){$('sermonStatus').textContent='No transcript was provided. Automatic video/audio transcription needs a connected media-processing service. You can paste a transcript to create a draft.';if(link||file)$('sermonStatus').textContent+=' The link/file has been selected, but this preview cannot access or transcribe it.';return}const sentences=transcript.split(/(?<=[.!?])\s+/).filter(Boolean);let intro='Sermon notes draft — prepared from the transcript you supplied.\n\n';let body;if(style==='simple'){body='MAIN MESSAGE\n'+sentences.slice(0,3).join(' ')+'\n\nKEY POINTS\n'+sentences.slice(3).map((s,i)=>(i+1)+'. '+s).join('\n')}else if(style==='personal'){body='WHAT I HEARD\n'+transcript+'\n\nPERSONAL REFLECTION\nWhat stood out to me?\n\nWhat Scripture do I want to study more?\n\nHow can I apply this message?'}else{body='MAIN MESSAGE\n'+(sentences[0]||'Add the main message here.')+'\n\nSERMON NOTES\n'+sentences.slice(1).map((s,i)=>(i+1)+'. '+s).join('\n')+'\n\nSCRIPTURE REFERENCES\nAdd or verify the Bible references mentioned in the sermon.\n\nPERSONAL APPLICATION\nWhat is one thing I can put into practice?'}$('sermonNotes').value=intro+body;$('sermonStatus').textContent='Draft created from the text you pasted. Please review it for accuracy before saving.'}
 function post(){const t=$('postText').value.trim();if(!t)return alert('Write a post first.');data.posts.unshift({title:'Community preview post',text:t});writeStore();$('postText').value='';renderAll()}
 function quiz(correct){$('quizResult').textContent=correct?'Correct! Jonah was swallowed by a great fish.':'Try again!'}
 function answer(){const q=$('question').value.toLowerCase().trim();if(!q)return alert('Type a question first.');let a='Consider reading the Bible, praying, and speaking with a trusted Christian mentor.';if(q.includes('pray'))a='Prayer is talking with God. You can praise Him, thank Him, ask for help, and share what is on your heart. Read Matthew 6:9–13.';else if(q.includes('jesus'))a='Read John 3:16 to learn about God’s love through Jesus. You can also read one of the Gospels to learn about His life and teachings.';else if(q.includes('forgiv'))a='Read Ephesians 4:32 about kindness and forgiveness.';else if(q.includes('salvation'))a='Read John 3:16 and Romans 10:9–13. A trusted pastor or Christian mentor can help you explore these passages.';$('answerText').textContent=a}
 function copyText(t){if(navigator.clipboard?.writeText){navigator.clipboard.writeText(t).then(()=>alert('Copied!')).catch(()=>alert(t))}else alert(t)}
-function clearDemo(){if(!confirm('Clear all saved preview information for this profile?'))return;data={favorites:[],prayers:[],entries:[],posts:[],reflection:''};writeStore();renderAll()}
+function clearDemo(){if(!confirm('Clear all saved preview information for this profile?'))return;data={favorites:[],prayers:[],entries:[],posts:[],reflection:'',profilePic:'',worshipSongs:[],scriptureNotes:[],readingPlanDone:[],faithGoal:''};writeStore();renderAll()}
 function setTextSize(size){document.body.style.fontSize=size}
-function findBible(){const ref=$('bibleReference').value.trim().toLowerCase();let text='This reference is not included in the sample library yet. A complete Bible search needs a licensed Bible text source.';if(ref==='john 3:16'||ref==='jn 3:16')text='John 3:16 — “For God so loved the world, that he gave his only begotten Son...” (KJV excerpt).';else if(ref==='philippians 4:13'||ref==='phil 4:13')text='Philippians 4:13 — “I can do all things through Christ which strengtheneth me.” (KJV).';$('bibleResult').className='item';$('bibleResult').textContent=text}
+const bibleBooks=[
+ ['Genesis','OT',50],['Exodus','OT',40],['Leviticus','OT',27],['Numbers','OT',36],['Deuteronomy','OT',34],['Joshua','OT',24],['Judges','OT',21],['Ruth','OT',4],['1 Samuel','OT',31],['2 Samuel','OT',24],['1 Kings','OT',22],['2 Kings','OT',25],['1 Chronicles','OT',29],['2 Chronicles','OT',36],['Ezra','OT',10],['Nehemiah','OT',13],['Esther','OT',10],['Job','OT',42],['Psalms','OT',150],['Proverbs','OT',31],['Ecclesiastes','OT',12],['Song of Solomon','OT',8],['Isaiah','OT',66],['Jeremiah','OT',52],['Lamentations','OT',5],['Ezekiel','OT',48],['Daniel','OT',12],['Hosea','OT',14],['Joel','OT',3],['Amos','OT',9],['Obadiah','OT',1],['Jonah','OT',4],['Micah','OT',7],['Nahum','OT',3],['Habakkuk','OT',3],['Zephaniah','OT',3],['Haggai','OT',2],['Zechariah','OT',14],['Malachi','OT',4],
+ ['Matthew','NT',28],['Mark','NT',16],['Luke','NT',24],['John','NT',21],['Acts','NT',28],['Romans','NT',16],['1 Corinthians','NT',16],['2 Corinthians','NT',13],['Galatians','NT',6],['Ephesians','NT',6],['Philippians','NT',4],['Colossians','NT',4],['1 Thessalonians','NT',5],['2 Thessalonians','NT',3],['1 Timothy','NT',6],['2 Timothy','NT',4],['Titus','NT',3],['Philemon','NT',1],['Hebrews','NT',13],['James','NT',5],['1 Peter','NT',5],['2 Peter','NT',3],['1 John','NT',5],['2 John','NT',1],['3 John','NT',1],['Jude','NT',1],['Revelation','NT',22]
+];
+let activeBibleVerses=[];let bibleLoadToken=0;
+const sampleBible={
+ 'John|3':[['16','For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.'],['17','For God sent not his Son into the world to condemn the world; but that the world through him might be saved.']],
+ 'Psalms|23':[['1','The LORD is my shepherd; I shall not want.'],['2','He maketh me to lie down in green pastures: he leadeth me beside the still waters.'],['3','He restoreth my soul: he leadeth me in the paths of righteousness for his name’s sake.'],['4','Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me.'],['5','Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over.'],['6','Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever.']],
+ 'Philippians|4':[['13','I can do all things through Christ which strengtheneth me.']]
+};
+function filterBibleBooks(){const testament=$('bibleTestament').value;const list=testament==='ALL'?bibleBooks:bibleBooks.filter(b=>b[1]===testament);$('bibleBookSelect').innerHTML=list.map(b=>`<option value="${escapeHTML(b[0])}">${escapeHTML(b[0])}</option>`).join('');const preferred=testament==='NT'||testament==='ALL'?'John':'Psalms';$('bibleBookSelect').value=preferred;loadBibleChapter()}
+function loadBibleChapter(){const book=$('bibleBookSelect').value;const info=bibleBooks.find(b=>b[0]===book);if(!info)return;const chapterSelect=$('bibleChapterSelect');const current=Number(chapterSelect.value)|| (book==='John'?3:book==='Psalms'?23:1);chapterSelect.innerHTML=Array.from({length:info[2]},(_,i)=>`<option value="${i+1}">Chapter ${i+1}</option>`).join('');chapterSelect.value=String(Math.min(current,info[2]));renderBibleReader()}
+const bibleBookIds={Genesis:'GEN',Exodus:'EXO',Leviticus:'LEV',Numbers:'NUM',Deuteronomy:'DEU',Joshua:'JOS',Judges:'JDG',Ruth:'RUT','1 Samuel':'1SA','2 Samuel':'2SA','1 Kings':'1KI','2 Kings':'2KI','1 Chronicles':'1CH','2 Chronicles':'2CH',Ezra:'EZR',Nehemiah:'NEH',Esther:'EST',Job:'JOB',Psalms:'PSA',Proverbs:'PRO',Ecclesiastes:'ECC','Song of Solomon':'SNG',Isaiah:'ISA',Jeremiah:'JER',Lamentations:'LAM',Ezekiel:'EZK',Daniel:'DAN',Hosea:'HOS',Joel:'JOL',Amos:'AMO',Obadiah:'OBA',Jonah:'JON',Micah:'MIC',Nahum:'NAM',Habakkuk:'HAB',Zephaniah:'ZEP',Haggai:'HAG',Zechariah:'ZEC',Malachi:'MAL',Matthew:'MAT',Mark:'MRK',Luke:'LUK',John:'JHN',Acts:'ACT',Romans:'ROM','1 Corinthians':'1CO','2 Corinthians':'2CO',Galatians:'GAL',Ephesians:'EPH',Philippians:'PHP',Colossians:'COL','1 Thessalonians':'1TH','2 Thessalonians':'2TH','1 Timothy':'1TI','2 Timothy':'2TI',Titus:'TIT',Philemon:'PHM',Hebrews:'HEB',James:'JAS','1 Peter':'1PE','2 Peter':'2PE','1 John':'1JN','2 John':'2JN','3 John':'3JN',Jude:'JUD',Revelation:'REV'};
+function bibleBookSlug(book){return book.toLowerCase().replace(/\s+/g,'-')}
+function normalizeBiblePayload(payload){let verses=Array.isArray(payload?.verses)?payload.verses:Array.isArray(payload?.chapter?.verses)?payload.chapter.verses:[];return verses.map((v,i)=>({verse:v.verse??v.verse_number??v.number??i+1,text:v.text??v.content??''})).filter(v=>String(v.text).trim()).map(v=>[String(v.verse),String(v.text).trim().replace(/\s+/g,' ')]);}
+async function renderBibleReader(){const book=$('bibleBookSelect').value;const chapter=Number($('bibleChapterSelect').value);const box=$('bibleReadingText');const token=++bibleLoadToken;$('bibleReadingTitle').textContent=book+' '+chapter;$('bibleReadingSubtitle').textContent='King James Version · '+book+' chapter '+chapter+' · Scroll down the page to read every verse';box.textContent='Loading the complete chapter…';activeBibleVerses=[];const bookId=bibleBookIds[book];const slug=bibleBookSlug(book);const urls=[`https://www.dabar.io/data/kjv/${bookId}/${chapter}`,`https://cdn.jsdelivr.net/gh/jsubroto/bible-api@main/versions/kjv/books/${slug}/chapters/${chapter}.json`,`https://bible-api.com/${encodeURIComponent(book+' '+chapter)}?translation=kjv&single_chapter_book_matching=indifferent`];let lastError=null;for(const url of urls){try{const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),12000);let response;try{response=await fetch(url,{signal:controller.signal,cache:'no-store'});}finally{clearTimeout(timeout)}if(!response.ok)throw new Error('Bible service returned '+response.status);const payload=await response.json();const verses=normalizeBiblePayload(payload);if(!verses.length)throw new Error('No verses were included in the response');if(token!==bibleLoadToken)return;activeBibleVerses=verses;box.innerHTML=verses.map(v=>`<div class="bible-verse"><span class="verse-num">${escapeHTML(v[0])}</span>${escapeHTML(v[1])}</div>`).join('');box.scrollTop=0;$('bibleReadingSubtitle').textContent='King James Version · '+book+' chapter '+chapter+' · '+verses.length+' verses · Scroll down the page to read all verses';return;}catch(requestError){lastError=requestError;}}if(token!==bibleLoadToken)return;const fallback=sampleBible[book+'|'+chapter]||[];activeBibleVerses=fallback;if(fallback.length){box.innerHTML=fallback.map(v=>`<div class="bible-verse"><span class="verse-num">${escapeHTML(v[0])}</span>${escapeHTML(v[1])}</div>`).join('');$('bibleReadingSubtitle').textContent='Sample passage only · The complete chapter could not be reached. Tap Retry to try again.';}else{box.innerHTML=`<div class="item">The Bible text services could not be reached just now. Check your internet connection, then try again. Your selected book and chapter are still here.<br><button type="button" class="btn" onclick="renderBibleReader()">Retry loading chapter</button></div>`;$('bibleReadingSubtitle').textContent='Unable to connect to the free KJV text sources';}console.warn('Bible chapter failed to load:',book,chapter,lastError)}
+function changeBibleFont(){const size=Number($('bibleFontSize').value)||20;$('bibleReadingText').style.fontSize=size+'px'}
+function moveBibleChapter(step){const select=$('bibleChapterSelect');const next=Number(select.value)+step;if(next<1||next>select.options.length)return;select.value=String(next);renderBibleReader()}
+function currentBibleText(){const book=$('bibleBookSelect').value;const chapter=Number($('bibleChapterSelect').value);return activeBibleVerses.map(v=>book+' '+chapter+':'+v[0]+' — '+v[1]).join('\n')}
+function saveCurrentBibleChapter(){const text=currentBibleText();if(!text)return alert('This chapter text is not available in the preview yet.');saveVerse(text)}
+function copyCurrentBibleChapter(){const text=currentBibleText();if(!text)return alert('This chapter text is not available in the preview yet.');copyText(text)}
+function findBible(){const ref=$('bibleReference').value.trim().toLowerCase();const match=ref.match(/^(john|jn|psalm|psalms|philippians|phil)\s+(\d+)(?::(\d+))?$/);if(!match){$('bibleResult').className='item';$('bibleResult').textContent='Try a sample reference such as John 3:16, Psalm 23, or Philippians 4:13.';return}let book=match[1].startsWith('jn')||match[1]==='john'?'John':match[1].startsWith('ps')?'Psalms':'Philippians';const chapter=Number(match[2]);$('bibleTestament').value=book==='Psalms'?'OT':'NT';filterBibleBooks();$('bibleBookSelect').value=book;loadBibleChapter();$('bibleChapterSelect').value=String(chapter);renderBibleReader();const verse=match[3];$('bibleResult').className='item';$('bibleResult').textContent=verse?'Opened '+book+' '+chapter+':'+verse+' in the reader.':'Opened '+book+' '+chapter+' in the reader.';document.querySelector('.bible-reader').scrollIntoView({behavior:'smooth',block:'start'})}
 function saveReflection(){const t=$('salvationReflection').value.trim();if(!t)return alert('Write a reflection first.');data.reflection=t;writeStore();renderAll();alert('Reflection saved in this browser preview.')}
-document.querySelectorAll('[data-challenge]').forEach(box=>box.addEventListener('change',()=>{const boxes=[...document.querySelectorAll('[data-challenge]')];$('challengeCount').textContent=boxes.filter(x=>x.checked).length+' of '+boxes.length+' challenges completed.'}));
+
+
+/* Daily Bible study: rotates by calendar date; content is authored sample material, not live AI. */
+const dailyLessons=[
+ {title:'Trust God When Life Is Difficult',verse:'Proverbs 3:5-6',text:'This passage teaches believers to trust the Lord rather than relying only on their own understanding.',action:'Pray about one situation where you need to trust God today.',question:'What is one area of your life you can place in God’s hands?'},
+ {title:'Choose Forgiveness',verse:'Ephesians 4:32',text:'The Bible calls us to kindness, tenderheartedness, and forgiveness because of the forgiveness shown to us through Christ.',action:'Ask God to help you show kindness to someone today.',question:'Is there someone you need to forgive or treat with kindness?'},
+ {title:'Be Strong and Courageous',verse:'Joshua 1:9',text:'God encouraged Joshua to be strong and courageous and reminded him that He would be with him.',action:'Face one difficult task today with prayer and courage.',question:'How can remembering God’s presence change the way you face fear?'},
+ {title:'Keep Praying',verse:'1 Thessalonians 5:17',text:'Prayer is an ongoing relationship with God. We can speak with Him throughout the day.',action:'Set aside a quiet moment to thank God and pray for someone.',question:'What would you like to talk to God about today?'},
+ {title:'Love One Another',verse:'John 13:34-35',text:'Jesus taught His followers to love one another. Love is one way people recognize His disciples.',action:'Encourage or help someone without expecting anything in return.',question:'What is one practical way you can show Christlike love today?'},
+ {title:'God Gives Peace',verse:'Philippians 4:6-7',text:'This passage encourages prayer and thanksgiving, trusting God with our worries.',action:'Name one worry in prayer and thank God for one blessing.',question:'What concern can you bring to God instead of carrying alone?'},
+ {title:'Walk in Faith',verse:'2 Corinthians 5:7',text:'Faith means trusting God even when we cannot see every step ahead.',action:'Take one faithful next step toward something good and right.',question:'Where do you need to trust God one step at a time?'}
+];
+function dayNumber(){const d=new Date();return Math.floor(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/86400000)}
+function todayKey(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function renderDailyLesson(){const lesson=dailyLessons[((dayNumber()%dailyLessons.length)+dailyLessons.length)%dailyLessons.length];if(!$('dailyLessonTitle'))return;$('dailyLessonDate').textContent='Daily lesson for '+new Date().toLocaleDateString();$('dailyLessonTitle').textContent=lesson.title;$('dailyLessonVerse').textContent=lesson.verse;$('dailyLessonText').textContent=lesson.text;$('dailyLessonAction').textContent=lesson.action;$('dailyLessonQuestion').textContent=lesson.question}
+function saveDailyLesson(){const lesson=dailyLessons[((dayNumber()%dailyLessons.length)+dailyLessons.length)%dailyLessons.length];data.entries.unshift({title:'Daily Bible Lesson — '+lesson.title,text:lesson.verse+'\n\n'+lesson.text+'\n\nPut it into practice: '+lesson.action+'\n\nReflection: '+lesson.question,date:new Date().toLocaleDateString()});writeStore();renderAll();alert('Daily lesson saved to My Journal → My Entries.')}
+const readingPlan=[['Day 1','John 1'],['Day 2','John 2'],['Day 3','John 3'],['Day 4','Psalm 23'],['Day 5','Luke 15'],['Day 6','Romans 8'],['Day 7','Matthew 5']];
+function renderReadingPlan(){const el=$('readingPlan');if(!el)return;el.innerHTML=readingPlan.map((item,i)=>{const done=data.readingPlanDone.includes(i);return `<label class="checkline"><input type="checkbox" ${done?'checked':''} onchange="toggleReadingDay(${i},this.checked)">${item[0]} — Read ${item[1]}</label>`}).join('');$('readingPlanCount').textContent=data.readingPlanDone.length+' of 7 readings completed.'}
+function toggleReadingDay(i,checked){if(checked&&!data.readingPlanDone.includes(i))data.readingPlanDone.push(i);if(!checked)data.readingPlanDone=data.readingPlanDone.filter(x=>x!==i);writeStore();renderReadingPlan();refreshProgress()}
+function saveScriptureNote(){const ref=$('scriptureNoteRef').value.trim(),text=$('scriptureNoteText').value.trim();if(!ref||!text)return alert('Enter a Bible reference and your notes.');data.scriptureNotes.unshift({ref,text,date:new Date().toLocaleDateString()});writeStore();$('scriptureNoteRef').value='';$('scriptureNoteText').value='';renderScriptureNotes();refreshProgress();alert('Scripture note saved to this browser profile.')}
+function renderScriptureNotes(){const el=$('scriptureNotes');if(!el)return;if(!data.scriptureNotes.length){el.className='empty';el.textContent='No Scripture notes yet.';return}el.className='';el.innerHTML=data.scriptureNotes.map((n,i)=>`<div class="item"><h3>${escapeHTML(n.ref)}</h3><p>${escapeHTML(n.text)}</p><p class="small">${escapeHTML(n.date||'')}</p><button class="secondary" onclick="deleteScriptureNote(${i})">DELETE NOTE</button></div>`).join('')}
+function deleteScriptureNote(i){if(!confirm('Delete this Scripture note?'))return;data.scriptureNotes.splice(i,1);writeStore();renderScriptureNotes();refreshProgress()}
+function addWorshipSong(){const title=$('songTitle').value.trim(),artist=$('songArtist').value.trim(),link=$('songLink').value.trim();if(!title||!link)return alert('Enter a song title and a music link.');try{const u=new URL(link);if(!['http:','https:'].includes(u.protocol))throw new Error()}catch{return alert('Please enter a valid https:// or http:// music link.')}data.worshipSongs.unshift({title,artist,link});writeStore();$('songTitle').value='';$('songArtist').value='';$('songLink').value='';renderWorshipSongs();alert('Song added to your worship list.')}
+function renderWorshipSongs(){const el=$('worshipSongs');if(!el)return;if(!data.worshipSongs.length){el.className='empty';el.textContent='You have not added any songs yet.';return}el.className='';el.innerHTML=data.worshipSongs.map((s,i)=>`<div class="item"><h3>${escapeHTML(s.title)}</h3><p>${escapeHTML(s.artist||'Artist not entered')}</p><div class="item-actions"><a href="${escapeHTML(s.link)}" target="_blank" rel="noopener">OPEN SONG ↗</a><button class="secondary" onclick="deleteWorshipSong(${i})">REMOVE</button></div></div>`).join('')}
+function deleteWorshipSong(i){if(!confirm('Remove this song from your list?'))return;data.worshipSongs.splice(i,1);writeStore();renderWorshipSongs()}
+function downloadVerseWallpaper(){const canvas=$('wallpaperCanvas');const ctx=canvas.getContext('2d');const verse=$('wallpaperVerse').value;const w=canvas.width,h=canvas.height;const grad=ctx.createLinearGradient(0,0,w,h);grad.addColorStop(0,'#090909');grad.addColorStop(.48,'#42170f');grad.addColorStop(1,'#090909');ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);const glow=ctx.createRadialGradient(w/2,h*.43,20,w/2,h*.43,650);glow.addColorStop(0,'rgba(255,112,43,.35)');glow.addColorStop(1,'rgba(255,70,20,0)');ctx.fillStyle=glow;ctx.fillRect(0,0,w,h);ctx.textAlign='center';ctx.fillStyle='#ffc45b';ctx.font='bold 66px Arial';ctx.fillText('✝ ON FIRE FOR GOD',w/2,330);ctx.strokeStyle='#ff762b';ctx.lineWidth=4;ctx.strokeRect(80,450,w-160,h-900);const words=verse.split(' ');let lines=[],line='';ctx.font='bold 58px Arial';const maxWidth=w-250;for(const word of words){const test=line?line+' '+word:word;if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=word}else line=test}if(line)lines.push(line);const lineHeight=82;let y=h/2-(lines.length*lineHeight)/2;ctx.fillStyle='#fff0df';lines.forEach(t=>{ctx.fillText(t,w/2,y);y+=lineHeight});ctx.fillStyle='#ffc45b';ctx.font='bold 42px Arial';ctx.fillText('WARRIOR FOR CHRIST',w/2,h-300);ctx.fillStyle='#d9b89d';ctx.font='30px Arial';ctx.fillText('SHARE GOD’S WORD • GROW IN FAITH',w/2,h-230);const a=document.createElement('a');a.download='on-fire-for-god-verse-wallpaper.png';a.href=canvas.toDataURL('image/png');a.click()}
+function refreshProgress(){const el=$('progressSummary');if(!el)return;const stats=[['Saved Bible verses',data.favorites.length],['Prayer entries',data.prayers.length],['Journal entries',data.entries.length],['Scripture notes',data.scriptureNotes.length],['Worship songs',data.worshipSongs.length],['Reading plan completed',data.readingPlanDone.length+' / 7']];el.innerHTML=stats.map(s=>`<div class="item"><strong>${escapeHTML(s[0])}</strong><p>${escapeHTML(s[1])}</p></div>`).join('')}
+function saveFaithGoal(){const goal=$('faithGoal').value.trim();if(!goal)return alert('Write a faith goal first.');data.faithGoal=goal;writeStore();$('savedFaithGoal').textContent='My goal: '+goal;alert('Your goal has been saved to this browser profile.')}
+
+/* Profile pictures: compressed before saving to this browser's account data. */
+function renderProfilePicture(){
+ const src=data.profilePic||DEFAULT_AVATAR;
+ const profileImage=$('profilePicture');
+ const headerImage=$('headerProfilePicture');
+ if(profileImage)profileImage.src=src;
+ if(headerImage)headerImage.src=src;
+ const displayName=$('profileDisplayName');
+ if(displayName)displayName.textContent=currentUser==='Guest'?'Guest Profile':currentUser+"'s Profile";
+ const headerName=$('headerAccountName');
+ if(headerName)headerName.textContent=currentUser;
+ const message=$('profileMessage');
+ if(message)message.textContent=data.profilePic?'Your ON FIRE FOR GOD profile picture is saved in this browser.':'No profile picture selected yet.';
+}
+function uploadProfilePicture(file){
+ if(!file)return;
+ if(!file.type.startsWith('image/')){alert('Please choose an image file.');return}
+ if(file.size>12*1024*1024){alert('Please choose an image smaller than 12 MB.');return}
+ const reader=new FileReader();
+ reader.onload=()=>{
+  const image=new Image();
+  image.onload=()=>{
+   const size=400,canvas=document.createElement('canvas');
+   canvas.width=size;canvas.height=size;
+   const ctx=canvas.getContext('2d');
+   const scale=Math.max(size/image.width,size/image.height);
+   const width=image.width*scale,height=image.height*scale;
+   ctx.drawImage(image,(size-width)/2,(size-height)/2,width,height);
+   const compressed=canvas.toDataURL('image/jpeg',0.78);
+   data.profilePic=compressed;
+   if(writeStore()){renderProfilePicture();$('profileMessage').textContent='🔥 Your profile picture has been saved!';}
+  };
+  image.onerror=()=>alert('This image could not be opened. Please choose another picture.');
+  image.src=reader.result;
+ };
+ reader.onerror=()=>alert('The selected picture could not be read.');
+ reader.readAsDataURL(file);
+}
+function removeProfilePicture(){
+ if(!data.profilePic)return alert('You do not have a profile picture to remove.');
+ if(!confirm('Remove your ON FIRE FOR GOD profile picture?'))return;
+ data.profilePic='';
+ if(writeStore())renderProfilePicture();
+}
+$('profileUpload').addEventListener('change',event=>{uploadProfilePicture(event.target.files&&event.target.files[0]);event.target.value=''});
+const challengeKey='offg_challenges_'+todayKey();
+function loadDailyChallenges(){let saved=[];try{saved=JSON.parse(localStorage.getItem(challengeKey)||'[]')}catch{}document.querySelectorAll('[data-challenge]').forEach(box=>box.checked=saved.includes(box.dataset.challenge));updateChallengeCount()}
+function updateChallengeCount(){const boxes=[...document.querySelectorAll('[data-challenge]')];$('challengeCount').textContent=boxes.filter(x=>x.checked).length+' of '+boxes.length+' challenges completed.'}
+document.querySelectorAll('[data-challenge]').forEach(box=>box.addEventListener('change',()=>{const boxes=[...document.querySelectorAll('[data-challenge]')];const checked=boxes.filter(x=>x.checked).map(x=>x.dataset.challenge);try{localStorage.setItem(challengeKey,JSON.stringify(checked))}catch{}updateChallengeCount();refreshProgress()}));
+loadDailyChallenges();
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
 showAuth('signup');
 </script>
 </body>
 </html>
-
