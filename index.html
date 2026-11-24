@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#100b0a">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <meta name="description" content="ON FIRE FOR GOD — Warrior for Christ. Share God's Word. Grow in Faith.">
 <title>ON FIRE FOR GOD | Warrior for Christ</title>
 <style>
@@ -75,7 +76,18 @@ hr{border:0;border-top:1px solid #523021;margin:18px 0}
 .bible-reader-head{text-align:center;border-bottom:1px solid #70402c;padding-bottom:14px;margin-bottom:18px}
 .bible-reader-head h2{color:var(--gold);margin:4px 0}
 .bible-reading-text{font-family:Georgia,serif;font-size:20px;line-height:1.9;white-space:normal;color:#fff2e5;max-height:none;overflow:visible;overscroll-behavior:auto;padding:8px 12px 8px 4px}
-.bible-verse{display:block;margin:0 0 12px;padding:3px 6px;border-radius:8px}
+.bible-verse{display:block;margin:0 0 12px;padding:8px 9px;border-radius:8px;border:1px solid transparent}
+.bible-verse.highlight-yellow{background:#6a541b66;border-color:#d7ad42}
+.bible-verse.highlight-green{background:#245b3c88;border-color:#53a878}
+.bible-verse.highlight-blue{background:#244c7888;border-color:#5796d1}
+.bible-verse.highlight-pink{background:#71365388;border-color:#cf78a1}
+.bible-verse.audio-current{outline:2px solid var(--gold);background:#6a541b55;scroll-margin:110px}
+.bible-verse-tools{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0 0 30px}
+.bible-verse-tools button{font-family:Arial,sans-serif;font-size:11px;padding:5px 8px;flex:0 0 auto}
+.bible-highlight-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.bible-highlight-toolbar select{width:auto;min-width:150px;margin:0}
+.bible-saved-verse{border-left:4px solid var(--gold);padding:10px;margin:9px 0;background:#1d1511;border-radius:7px}
+.bible-saved-verse p{margin:4px 0}
 .bible-verse .verse-num{display:inline-block;min-width:25px;color:var(--gold);font-size:13px;font-weight:bold;vertical-align:super;margin-right:7px}
 .bible-reading-text .verse-num{color:var(--gold);font-size:13px;font-weight:bold;vertical-align:super;margin-right:5px}
 .bible-reader-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
@@ -169,6 +181,13 @@ hr{border:0;border-top:1px solid #523021;margin:18px 0}
   </div>
   <div class="bible-reader">
    <div class="bible-reader-head"><div class="small">HOLY BIBLE · KING JAMES VERSION</div><h2 id="bibleReadingTitle">John 3</h2><div class="small" id="bibleReadingSubtitle">Read, reflect, and grow in God's Word</div></div>
+   <div class="bible-highlight-toolbar"><label for="bibleHighlightColor">Highlighter color</label><select id="bibleHighlightColor" aria-label="Choose Bible highlight color"><option value="yellow">Yellow</option><option value="green">Green</option><option value="blue">Blue</option><option value="pink">Pink</option></select><span class="small">Tap Highlight or Save under any verse.</span></div>
+   <div class="card" style="margin:12px 0;background:#17110e;border-color:#a45b32">
+    <h3 style="margin-top:0;color:var(--gold)">🔊 Listen to the Bible</h3>
+    <p class="small">Uses the most natural English voice available on this device. Voice choices depend on your phone or computer.</p>
+    <div class="row"><button type="button" onclick="playBibleAudio()">▶ PLAY CHAPTER</button><button type="button" class="secondary" onclick="pauseBibleAudio()">Ⅱ PAUSE</button><button type="button" class="secondary" onclick="resumeBibleAudio()">▶ RESUME</button><button type="button" class="secondary" onclick="stopBibleAudio()">■ STOP</button></div>
+    <div id="bibleAudioStatus" class="small" role="status" aria-live="polite">Ready to read this chapter aloud.</div>
+   </div>
    <div id="bibleReadingText" class="bible-reading-text" aria-live="polite">Loading Bible passage…</div>
    <div class="bible-reader-actions"><button onclick="saveCurrentBibleChapter()">☆ SAVE CHAPTER</button><button class="secondary" onclick="copyCurrentBibleChapter()">COPY PASSAGE</button></div>
    <div class="bible-nav"><button class="secondary" onclick="moveBibleChapter(-1)">← PREVIOUS</button><button class="secondary" onclick="moveBibleChapter(1)">NEXT →</button></div>
@@ -177,6 +196,7 @@ hr{border:0;border-top:1px solid #523021;margin:18px 0}
  </div>
  <div class="card"><h2>🔎 Find a Bible Passage</h2><label for="bibleReference">Search a reference (sample passages)</label><div class="row"><input id="bibleReference" placeholder="Example: John 3:16"><button onclick="findBible()">LOOK UP</button></div><div id="bibleResult" class="item empty">Try John 3:16, Psalm 23, or Philippians 4.</div></div>
  <div class="card"><h2>⭐ My Favorite Verses</h2><div id="favorites" class="empty">No saved verses yet.</div></div>
+ <div class="card"><h2>🖍️ My Highlighted Bible Verses</h2><p class="small">Your highlighted verses are saved in this browser profile. Select a verse to open its chapter again.</p><div id="highlightedVerses" class="empty">No highlighted verses yet.</div></div>
 </section>
 <section id="lessons" class="page"><h1>✝ Bible Lessons</h1>
  <div class="card" id="dailyBibleStudy"><h2>🔥 Daily Bible Lesson</h2><p class="small" id="dailyLessonDate"></p><h3 id="dailyLessonTitle">Daily lesson</h3><p id="dailyLessonVerse" class="verse"></p><p id="dailyLessonText"></p><h3>Put It Into Practice</h3><p id="dailyLessonAction"></p><h3>Think About It</h3><p id="dailyLessonQuestion"></p><button onclick="saveDailyLesson()">SAVE LESSON TO MY JOURNAL</button></div>
@@ -248,7 +268,14 @@ hr{border:0;border-top:1px solid #523021;margin:18px 0}
   </div>
   <p id="profileMessage" class="profile-message" aria-live="polite">Your picture is saved to this browser profile.</p>
  </div>
- <div class="card"><h2>Reading Settings</h2><label for="textSize">Text Size</label><select id="textSize" onchange="setTextSize(this.value)"><option value="16px">Normal</option><option value="19px">Large</option><option value="14px">Small</option></select><h2>Privacy & Data</h2><p>Preview information, profile pictures, worship lists, notes, and progress are stored in this browser only. This is not secure cloud account storage and does not sync between devices.</p><button class="danger" onclick="clearDemo()">CLEAR PREVIEW ENTRIES</button></div>
+ <div class="card"><h2>Reading Settings</h2><label for="textSize">Text Size</label><select id="textSize" onchange="setTextSize(this.value)"><option value="16px">Normal</option><option value="19px">Large</option><option value="14px">Small</option></select>
+  <h2>🔊 Bible Audio Settings</h2><p class="small">Choose the voice and reading speed used when the Bible is read aloud. The available voices come from your phone or computer.</p>
+  <label for="bibleVoiceSetting">Bible Voice</label><select id="bibleVoiceSetting" onchange="saveBibleAudioSettings()"><option value="">Automatic — best available English voice</option></select>
+  <div class="profile-actions" style="margin-top:10px"><button type="button" class="secondary" onclick="previewBibleVoice()">▶ PREVIEW VOICE</button><button type="button" class="secondary" onclick="refreshBibleVoices()">↻ REFRESH VOICES</button></div>
+  <p id="bibleVoiceCount" class="small" aria-live="polite">Loading English voices from this device…</p>
+  <label for="bibleSpeedSetting">Reading Speed</label><select id="bibleSpeedSetting" onchange="saveBibleAudioSettings()"><option value="0.75">Slow — 0.75×</option><option value="0.9">Gentle — 0.9×</option><option value="1">Normal — 1×</option><option value="1.15">A little faster — 1.15×</option><option value="1.3">Fast — 1.3×</option><option value="1.5">Very fast — 1.5×</option></select>
+  <p id="bibleAudioSettingsStatus" class="small" role="status" aria-live="polite">Your Bible audio preferences are saved to this browser profile.</p>
+  <h2>Privacy & Data</h2><p>Preview information, profile pictures, worship lists, notes, and progress are stored in this browser only. This is not secure cloud account storage and does not sync between devices.</p><button class="danger" onclick="clearDemo()">CLEAR PREVIEW ENTRIES</button></div>
 </section>
 <section id="about" class="page"><h1>ℹ About Us</h1><div class="card"><h2 class="fire">ON FIRE FOR GOD</h2><h3>WARRIOR FOR CHRIST ✝</h3><p>Our mission is to share God's Word, encourage people, and help everyone grow in their faith.</p><p>Created by Colton Payne, with help from God.</p><h2>🔥 Keep Your Faith On Fire! 🔥</h2></div></section>
 </main>
@@ -259,30 +286,54 @@ hr{border:0;border-top:1px solid #523021;margin:18px 0}
 'use strict';
 const $=id=>document.getElementById(id);
 const STORE='offg_preview_v2';
+const SESSION_KEY='offg_signed_in_email_v1';
 const DEFAULT_AVATAR='data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffc45b"/><stop offset=".55" stop-color="#ff762b"/><stop offset="1" stop-color="#e33b24"/></linearGradient></defs><rect width="140" height="140" rx="70" fill="#211512"/><circle cx="70" cy="70" r="64" fill="none" stroke="url(#g)" stroke-width="4"/><path d="M70 28v84M49 49h42" stroke="url(#g)" stroke-width="8" stroke-linecap="round"/></svg>');
 let currentUser='Guest';
-let data={favorites:[],prayers:[],entries:[],posts:[],reflection:'',profilePic:'',worshipSongs:[],scriptureNotes:[],readingPlanDone:[],faithGoal:''};
+let data={favorites:[],highlights:[],prayers:[],entries:[],posts:[],reflection:'',profilePic:'',worshipSongs:[],scriptureNotes:[],readingPlanDone:[],faithGoal:''};
 let selectedJournalImages=[];
 
 function readStore(){try{return JSON.parse(localStorage.getItem(STORE)||'{}')}catch{return {}}}
 function writeStore(){try{const all=readStore();all[currentUser]=data;localStorage.setItem(STORE,JSON.stringify(all));return true}catch(e){alert('The browser could not save this information. The picture may be too large or browser storage may be full.');return false}}
-function loadUser(name){currentUser=name;const all=readStore();data=all[name]||{favorites:[],prayers:[],entries:[],posts:[],reflection:'',profilePic:'',worshipSongs:[],scriptureNotes:[],readingPlanDone:[],faithGoal:''};data.profilePic=data.profilePic||'';data.favorites=data.favorites||[];data.prayers=data.prayers||[];data.entries=data.entries||[];data.posts=data.posts||[];data.worshipSongs=data.worshipSongs||[];data.scriptureNotes=data.scriptureNotes||[];data.readingPlanDone=data.readingPlanDone||[];data.faithGoal=data.faithGoal||'';renderAll()}
+function loadUser(name){currentUser=name;const all=readStore();data=all[name]||{favorites:[],highlights:[],prayers:[],entries:[],posts:[],reflection:'',profilePic:'',worshipSongs:[],scriptureNotes:[],readingPlanDone:[],faithGoal:''};data.highlights=data.highlights||[];data.profilePic=data.profilePic||'';data.favorites=data.favorites||[];data.prayers=data.prayers||[];data.entries=data.entries||[];data.posts=data.posts||[];data.worshipSongs=data.worshipSongs||[];data.scriptureNotes=data.scriptureNotes||[];data.readingPlanDone=data.readingPlanDone||[];data.faithGoal=data.faithGoal||'';data.bibleAudioVoiceURI=data.bibleAudioVoiceURI||'';data.bibleAudioRate=data.bibleAudioRate||'0.95';renderAll();populateBibleAudioSettings()}
 function showSignup(){showAuth('signup')}
 function showLogin(){showAuth('login')}
 function showAuth(which){$('signup').classList.toggle('hidden',which!=='signup');$('login').classList.toggle('hidden',which!=='login')}
-function enter(name){loadUser(name);$('auth').classList.add('hidden');$('website').classList.remove('hidden');$('welcome').textContent='Welcome, '+name+'! Keep your heart on fire for God.';renderProfilePicture()}
-$('signup').addEventListener('submit',e=>{e.preventDefault();const name=$('name').value.trim();const email=$('email').value.trim().toLowerCase();const password=$('password').value;if(!name||!email||password.length<6)return;const profiles=readStore()._profiles||{};if(profiles[email]){alert('A preview profile already exists for this email. Please log in.');return}profiles[email]={name,password};const all=readStore();all._profiles=profiles;localStorage.setItem(STORE,JSON.stringify(all));enter(name)});
-$('login').addEventListener('submit',e=>{e.preventDefault();const email=$('loginEmail').value.trim().toLowerCase();const password=$('loginPassword').value;const profiles=readStore()._profiles||{};if(!profiles[email]||profiles[email].password!==password){alert('Preview profile not found or password does not match.');return}enter(profiles[email].name)});
+function enter(name,email=null){if(email){try{localStorage.setItem(SESSION_KEY,email)}catch(e){alert('Your browser could not remember this sign-in. Please check browser storage settings.')}}loadUser(name);$('auth').classList.add('hidden');$('website').classList.remove('hidden');$('welcome').textContent='Welcome, '+name+'! Keep your heart on fire for God.';renderProfilePicture()}
+$('signup').addEventListener('submit',e=>{e.preventDefault();const name=$('name').value.trim();const email=$('email').value.trim().toLowerCase();const password=$('password').value;if(!name||!email||password.length<6)return;const profiles=readStore()._profiles||{};if(profiles[email]){alert('A preview profile already exists for this email. Please log in.');return}profiles[email]={name,password};const all=readStore();all._profiles=profiles;localStorage.setItem(STORE,JSON.stringify(all));enter(name,email)});
+$('login').addEventListener('submit',e=>{e.preventDefault();const email=$('loginEmail').value.trim().toLowerCase();const password=$('loginPassword').value;const profiles=readStore()._profiles||{};if(!profiles[email]||profiles[email].password!==password){alert('Preview profile not found or password does not match.');return}enter(profiles[email].name,email)});
 function guest(){enter('Guest')}
-function logout(){$('website').classList.add('hidden');$('auth').classList.remove('hidden');showAuth('login');closeMenu()}
+function logout(){try{localStorage.removeItem(SESSION_KEY)}catch(e){}currentUser='Guest';$('website').classList.add('hidden');$('auth').classList.remove('hidden');showAuth('login');closeMenu()}
 function openMenu(){$('menu').classList.add('open');$('overlay').classList.add('open')}
 function closeMenu(){$('menu').classList.remove('open');$('overlay').classList.remove('open')}
-function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));$(id).classList.add('active');closeMenu();window.scrollTo({top:0,behavior:'smooth'});if(id==='settings')renderProfilePicture();if(id==='progress')refreshProgress()}
+function go(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));$(id).classList.add('active');closeMenu();window.scrollTo({top:0,behavior:'smooth'});if(id==='settings'){renderProfilePicture();populateBibleAudioSettings();}if(id==='progress')refreshProgress()}
 function escapeHTML(t){return String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function renderList(id,items,empty,kind){const el=$(id);if(!items.length){el.className='empty';el.textContent=empty;return}el.className='';el.innerHTML=items.map((item,i)=>{const title=item.title||item.label||'';const body=item.text||item;return `<div class="item"><h3>${escapeHTML(title||kind)}</h3><p>${escapeHTML(body)}</p>${item.imageNames?.length?`<p class="small">Attached page images: ${item.imageNames.map(escapeHTML).join(', ')}</p>`:''}<div class="item-actions"><button class="secondary" onclick="deleteItem('${kind}',${i})">DELETE</button></div></div>`}).join('')}
-function renderAll(){renderList('favorites',data.favorites,'No saved verses yet.','verse');renderList('prayers',data.prayers,'No prayers yet.','prayer');renderList('entries',data.entries,'No entries yet.','entry');renderList('posts',data.posts,'No posts yet.','post');$('salvationSaved').textContent=data.reflection?'Your reflection is saved in this browser preview.':'';renderProfilePicture();if($('bibleBookSelect')&&!$('bibleBookSelect').options.length)filterBibleBooks();renderDailyLesson();renderReadingPlan();renderScriptureNotes();renderWorshipSongs();refreshProgress();$('savedFaithGoal').textContent=data.faithGoal?'My goal: '+data.faithGoal:''}
+function renderAll(){renderList('favorites',data.favorites,'No saved verses yet.','verse');renderHighlightedVerses();renderList('prayers',data.prayers,'No prayers yet.','prayer');renderList('entries',data.entries,'No entries yet.','entry');renderList('posts',data.posts,'No posts yet.','post');$('salvationSaved').textContent=data.reflection?'Your reflection is saved in this browser preview.':'';renderProfilePicture();if($('bibleBookSelect')&&!$('bibleBookSelect').options.length)filterBibleBooks();renderDailyLesson();renderReadingPlan();renderScriptureNotes();renderWorshipSongs();refreshProgress();$('savedFaithGoal').textContent=data.faithGoal?'My goal: '+data.faithGoal:''}
 function deleteItem(kind,index){if(!confirm('Delete this item?'))return;const key={verse:'favorites',prayer:'prayers',entry:'entries',post:'posts'}[kind];if(!key)return;data[key].splice(index,1);writeStore();renderAll()}
 function saveVerse(text){if(data.favorites.some(x=>x.text===text))return alert('That verse is already saved.');data.favorites.push({title:'Saved Scripture',text});writeStore();renderAll();alert('Verse saved in this browser preview.')}
+function verseReference(book,chapter,verse){return book+' '+chapter+':'+verse}
+function toggleBibleHighlight(book,chapter,verse,text){
+ const ref=verseReference(book,chapter,verse),index=data.highlights.findIndex(x=>x.ref===ref);
+ if(index>=0)data.highlights.splice(index,1);else data.highlights.unshift({ref,text,color:$('bibleHighlightColor')?.value||'yellow',date:new Date().toLocaleDateString()});
+ writeStore();renderHighlightedVerses();renderBibleVerses();
+}
+function saveBibleVerse(book,chapter,verse,text){
+ const ref=verseReference(book,chapter,verse),full=ref+' — '+text;
+ if(data.favorites.some(x=>x.ref===ref||x.text===full))return alert('That verse is already saved in My Favorite Verses.');
+ data.favorites.unshift({title:ref,ref,text:full});writeStore();renderList('favorites',data.favorites,'No saved verses yet.','verse');alert(ref+' saved to My Favorite Verses.');
+}
+function renderHighlightedVerses(){
+ const el=$('highlightedVerses');if(!el)return;
+ if(!data.highlights?.length){el.className='empty';el.textContent='No highlighted verses yet.';return;}
+ el.className='';el.innerHTML=data.highlights.map((h,i)=>`<div class="bible-saved-verse"><strong>${escapeHTML(h.ref)}</strong><p>${escapeHTML(h.text)}</p><span class="pill">${escapeHTML(h.color||'yellow')} highlight</span><div class="item-actions"><button class="secondary" onclick="openHighlightedVerse(${i})">OPEN CHAPTER</button><button class="secondary" onclick="removeBibleHighlight(${i})">REMOVE</button></div></div>`).join('');
+}
+function removeBibleHighlight(i){data.highlights.splice(i,1);writeStore();renderHighlightedVerses();renderBibleVerses();}
+function openHighlightedVerse(i){const h=data.highlights[i];if(!h)return;const m=h.ref.match(/^(.*) (\d+):(\d+)$/);if(!m)return;const book=m[1],chapter=Number(m[2]);$('bibleTestament').value=bibleBooks.find(b=>b[0]===book)?.[1]||'NT';filterBibleBooks();$('bibleBookSelect').value=book;loadBibleChapter();$('bibleChapterSelect').value=String(chapter);renderBibleReader();go('bible');}
+function renderBibleVerses(){
+ const box=$('bibleReadingText');if(!box||!activeBibleVerses.length)return;const book=$('bibleBookSelect').value,chapter=Number($('bibleChapterSelect').value);
+ box.innerHTML=activeBibleVerses.map(v=>{const ref=verseReference(book,chapter,v[0]),saved=data.highlights.find(h=>h.ref===ref),klass=saved?' highlight-'+(saved.color||'yellow'):'';const b=encodeURIComponent(book).replace(/'/g,'%27'),n=encodeURIComponent(String(v[0])).replace(/'/g,'%27'),t=encodeURIComponent(v[1]).replace(/'/g,'%27');return `<div class="bible-verse${klass}" id="bible-verse-${escapeHTML(v[0])}"><span class="verse-num">${escapeHTML(v[0])}</span>${escapeHTML(v[1])}<div class="bible-verse-tools"><button type="button" class="secondary" onclick="toggleBibleHighlight(decodeURIComponent('${b}'),${chapter},decodeURIComponent('${n}'),decodeURIComponent('${t}'))">${saved?'REMOVE HIGHLIGHT':'🖍️ HIGHLIGHT'}</button><button type="button" class="secondary" onclick="saveBibleVerse(decodeURIComponent('${b}'),${chapter},decodeURIComponent('${n}'),decodeURIComponent('${t}'))">⭐ SAVE VERSE</button></div></div>`;}).join('');
+}
+
 function savePrayer(){const t=$('prayerText').value.trim();if(!t)return alert('Write a prayer first.');data.prayers.unshift({title:'Saved Prayer',text:t});writeStore();$('prayerText').value='';renderAll()}
 function saveJournal(){const t=$('journalText').value.trim();const title=$('journalTitle').value.trim()||'Journal Entry';if(!t&&!selectedJournalImages.length)return alert('Write an entry or select a page picture first.');data.entries.unshift({title,text:t||'Handwritten journal page attached.',imageNames:selectedJournalImages.map(x=>x.name),date:new Date().toLocaleDateString()});writeStore();$('journalText').value='';$('journalTitle').value='';$('journalImages').value='';$('journalImagePreview').innerHTML='';selectedJournalImages=[];renderAll();alert('Entry saved to My Journal → My Entries in this browser preview.')}
 function previewJournalImages(event){selectedJournalImages=Array.from(event.target.files||[]);const box=$('journalImagePreview');box.innerHTML='';selectedJournalImages.forEach(file=>{if(!file.type.startsWith('image/'))return;const img=document.createElement('img');img.className='file-preview';img.alt='Selected journal page preview';img.src=URL.createObjectURL(file);box.appendChild(img)})}
@@ -299,6 +350,57 @@ const bibleBooks=[
  ['Matthew','NT',28],['Mark','NT',16],['Luke','NT',24],['John','NT',21],['Acts','NT',28],['Romans','NT',16],['1 Corinthians','NT',16],['2 Corinthians','NT',13],['Galatians','NT',6],['Ephesians','NT',6],['Philippians','NT',4],['Colossians','NT',4],['1 Thessalonians','NT',5],['2 Thessalonians','NT',3],['1 Timothy','NT',6],['2 Timothy','NT',4],['Titus','NT',3],['Philemon','NT',1],['Hebrews','NT',13],['James','NT',5],['1 Peter','NT',5],['2 Peter','NT',3],['1 John','NT',5],['2 John','NT',1],['3 John','NT',1],['Jude','NT',1],['Revelation','NT',22]
 ];
 let activeBibleVerses=[];let bibleLoadToken=0;
+let bibleAudioIndex=0;let bibleAudioRunning=false;let bibleAudioVoice=null;let bibleAudioPaused=false;
+function getBibleSpeech(){return ('speechSynthesis' in window)?window.speechSynthesis:null}
+function chooseNaturalBibleVoice(){
+ const synth=getBibleSpeech();if(!synth)return null;
+ const allVoices=synth.getVoices();
+ if(data.bibleAudioVoiceURI){const preferred=allVoices.find(v=>v.voiceURI===data.bibleAudioVoiceURI);if(preferred)return preferred;}
+ const voices=allVoices.filter(v=>/^en(-|_)/i.test(v.lang||''));
+ if(!voices.length)return synth.getVoices().find(v=>/^en/i.test(v.lang||''))||null;
+ const score=v=>{const n=(v.name+' '+v.voiceURI).toLowerCase();let x=0;if(/^en-us/i.test(v.lang))x+=30;if(/natural|enhanced|premium|neural|samantha|ava|allison|jenny|aria|google us english/i.test(n))x+=35;if(/compact|basic|espeak|robot/i.test(n))x-=25;if(v.localService)x+=3;return x};
+ return voices.sort((a,b)=>score(b)-score(a))[0];
+}
+function updateBibleAudioStatus(message){const el=$('bibleAudioStatus');if(el)el.textContent=message}
+function clearBibleAudioMark(){document.querySelectorAll('.bible-verse.audio-current').forEach(el=>el.classList.remove('audio-current'))}
+function stopBibleAudio(silent=false){const synth=getBibleSpeech();if(synth)synth.cancel();bibleAudioRunning=false;bibleAudioPaused=false;bibleAudioIndex=0;clearBibleAudioMark();if(!silent)updateBibleAudioStatus('Playback stopped.');}
+function playBibleAudio(){
+ const synth=getBibleSpeech();if(!synth){updateBibleAudioStatus('Audio reading is not supported in this browser. Try Safari on iPhone or Chrome on a supported device.');return}
+ if(!activeBibleVerses.length){updateBibleAudioStatus('Load a Bible chapter before playing audio.');return}
+ synth.cancel();bibleAudioVoice=chooseNaturalBibleVoice();bibleAudioIndex=0;bibleAudioRunning=true;bibleAudioPaused=false;readNextBibleVerse();
+}
+function readNextBibleVerse(){
+ const synth=getBibleSpeech();if(!synth||!bibleAudioRunning||bibleAudioPaused)return;
+ if(bibleAudioIndex>=activeBibleVerses.length){bibleAudioRunning=false;clearBibleAudioMark();updateBibleAudioStatus('Finished reading this chapter.');return}
+ const [number,verseText]=activeBibleVerses[bibleAudioIndex];const utterance=new SpeechSynthesisUtterance(verseText);
+ if(!bibleAudioVoice)bibleAudioVoice=chooseNaturalBibleVoice();if(bibleAudioVoice)utterance.voice=bibleAudioVoice;
+ utterance.lang=(bibleAudioVoice&&bibleAudioVoice.lang)||'en-US';utterance.rate=Math.min(1.5,Math.max(0.75,Number(data.bibleAudioRate)||0.95));utterance.pitch=1;
+ clearBibleAudioMark();const verseEl=document.querySelectorAll('#bibleReadingText .bible-verse')[bibleAudioIndex];if(verseEl){verseEl.classList.add('audio-current');verseEl.scrollIntoView({behavior:'smooth',block:'center'})}
+ updateBibleAudioStatus('Reading verse '+number+(bibleAudioVoice?' · '+bibleAudioVoice.name:' · device default voice'));
+ utterance.onend=()=>{if(!bibleAudioRunning||bibleAudioPaused)return;bibleAudioIndex++;readNextBibleVerse()};
+ utterance.onerror=event=>{bibleAudioRunning=false;updateBibleAudioStatus('Audio could not continue ('+(event.error||'voice error')+'). Try Play Chapter again.')};
+ synth.speak(utterance);
+}
+function pauseBibleAudio(){const synth=getBibleSpeech();if(!synth||!synth.speaking){updateBibleAudioStatus('There is no chapter currently playing.');return}synth.pause();bibleAudioPaused=true;updateBibleAudioStatus('Audio paused. Press Resume to continue.')}
+function resumeBibleAudio(){const synth=getBibleSpeech();if(!synth||!bibleAudioPaused){updateBibleAudioStatus('Audio is not paused. Press Play Chapter to start.');return}synth.resume();bibleAudioPaused=false;updateBibleAudioStatus('Resuming Bible audio…')}
+function populateBibleAudioSettings(){
+ const select=$('bibleVoiceSetting'),speed=$('bibleSpeedSetting');if(!select||!speed)return;
+ const synth=getBibleSpeech();const voices=synth?synth.getVoices():[];const previous=data.bibleAudioVoiceURI||'';
+ select.innerHTML='<option value="">Automatic — best available English voice</option>';
+ voices.filter(v=>/^en(-|_)/i.test(v.lang||'')).sort((a,b)=>a.name.localeCompare(b.name)).forEach(v=>{const option=document.createElement('option');option.value=v.voiceURI;option.textContent=v.name+' ('+v.lang+')'+(v.default?' — device default':'');select.appendChild(option)});
+ select.value=voices.some(v=>v.voiceURI===previous)?previous:'';speed.value=String(data.bibleAudioRate||'0.95');
+ const count=$('bibleVoiceCount');if(count)count.textContent=voices.length?voices.length+' English voice'+(voices.length===1?'':'s')+' available on this device. More may appear if you install additional system voices.':'No English voices are available yet. Tap REFRESH VOICES or check your device speech settings.';
+ if(!voices.length)select.title='Voice list is still loading or this browser does not expose installed voices.';
+}
+function refreshBibleVoices(){const synth=getBibleSpeech();if(!synth){const count=$('bibleVoiceCount');if(count)count.textContent='This browser does not support speech voices.';return}synth.getVoices();populateBibleAudioSettings();setTimeout(()=>populateBibleAudioSettings(),500);}
+function previewBibleVoice(){const synth=getBibleSpeech();if(!synth){updateBibleAudioStatus('Voice preview is not supported in this browser.');return}const voice=chooseNaturalBibleVoice();synth.cancel();const sample=new SpeechSynthesisUtterance('The Lord is my shepherd. I shall not want. Let the words of the Bible encourage your heart today.');if(voice){sample.voice=voice;sample.lang=voice.lang}sample.rate=Math.min(1.5,Math.max(0.75,Number(data.bibleAudioRate)||0.95));sample.pitch=1;sample.onend=()=>updateBibleAudioStatus('Voice preview finished.');sample.onerror=()=>updateBibleAudioStatus('This voice could not be previewed on this device.');updateBibleAudioStatus('Previewing '+(voice?voice.name:'the device default voice')+'…');synth.speak(sample);}
+function saveBibleAudioSettings(){
+ const voice=$('bibleVoiceSetting'),speed=$('bibleSpeedSetting');if(!voice||!speed)return;
+ data.bibleAudioVoiceURI=voice.value;data.bibleAudioRate=speed.value;writeStore();bibleAudioVoice=chooseNaturalBibleVoice();
+ const status=$('bibleAudioSettingsStatus');if(status)status.textContent='Saved! Bible audio will use '+(bibleAudioVoice?bibleAudioVoice.name:'the best available English voice')+' at '+speed.options[speed.selectedIndex].text+'.';
+ if(getBibleSpeech()&&getBibleSpeech().speaking){stopBibleAudio(true);updateBibleAudioStatus('Audio settings updated. Press Play Chapter to hear the new voice and speed.');}
+}
+if(getBibleSpeech()){getBibleSpeech().getVoices();getBibleSpeech().onvoiceschanged=()=>{bibleAudioVoice=chooseNaturalBibleVoice();populateBibleAudioSettings()}}
 const sampleBible={
  'John|3':[['16','For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.'],['17','For God sent not his Son into the world to condemn the world; but that the world through him might be saved.']],
  'Psalms|23':[['1','The LORD is my shepherd; I shall not want.'],['2','He maketh me to lie down in green pastures: he leadeth me beside the still waters.'],['3','He restoreth my soul: he leadeth me in the paths of righteousness for his name’s sake.'],['4','Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me.'],['5','Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over.'],['6','Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever.']],
@@ -309,7 +411,7 @@ function loadBibleChapter(){const book=$('bibleBookSelect').value;const info=bib
 const bibleBookIds={Genesis:'GEN',Exodus:'EXO',Leviticus:'LEV',Numbers:'NUM',Deuteronomy:'DEU',Joshua:'JOS',Judges:'JDG',Ruth:'RUT','1 Samuel':'1SA','2 Samuel':'2SA','1 Kings':'1KI','2 Kings':'2KI','1 Chronicles':'1CH','2 Chronicles':'2CH',Ezra:'EZR',Nehemiah:'NEH',Esther:'EST',Job:'JOB',Psalms:'PSA',Proverbs:'PRO',Ecclesiastes:'ECC','Song of Solomon':'SNG',Isaiah:'ISA',Jeremiah:'JER',Lamentations:'LAM',Ezekiel:'EZK',Daniel:'DAN',Hosea:'HOS',Joel:'JOL',Amos:'AMO',Obadiah:'OBA',Jonah:'JON',Micah:'MIC',Nahum:'NAM',Habakkuk:'HAB',Zephaniah:'ZEP',Haggai:'HAG',Zechariah:'ZEC',Malachi:'MAL',Matthew:'MAT',Mark:'MRK',Luke:'LUK',John:'JHN',Acts:'ACT',Romans:'ROM','1 Corinthians':'1CO','2 Corinthians':'2CO',Galatians:'GAL',Ephesians:'EPH',Philippians:'PHP',Colossians:'COL','1 Thessalonians':'1TH','2 Thessalonians':'2TH','1 Timothy':'1TI','2 Timothy':'2TI',Titus:'TIT',Philemon:'PHM',Hebrews:'HEB',James:'JAS','1 Peter':'1PE','2 Peter':'2PE','1 John':'1JN','2 John':'2JN','3 John':'3JN',Jude:'JUD',Revelation:'REV'};
 function bibleBookSlug(book){return book.toLowerCase().replace(/\s+/g,'-')}
 function normalizeBiblePayload(payload){let verses=Array.isArray(payload?.verses)?payload.verses:Array.isArray(payload?.chapter?.verses)?payload.chapter.verses:[];return verses.map((v,i)=>({verse:v.verse??v.verse_number??v.number??i+1,text:v.text??v.content??''})).filter(v=>String(v.text).trim()).map(v=>[String(v.verse),String(v.text).trim().replace(/\s+/g,' ')]);}
-async function renderBibleReader(){const book=$('bibleBookSelect').value;const chapter=Number($('bibleChapterSelect').value);const box=$('bibleReadingText');const token=++bibleLoadToken;$('bibleReadingTitle').textContent=book+' '+chapter;$('bibleReadingSubtitle').textContent='King James Version · '+book+' chapter '+chapter+' · Scroll down the page to read every verse';box.textContent='Loading the complete chapter…';activeBibleVerses=[];const bookId=bibleBookIds[book];const slug=bibleBookSlug(book);const urls=[`https://www.dabar.io/data/kjv/${bookId}/${chapter}`,`https://cdn.jsdelivr.net/gh/jsubroto/bible-api@main/versions/kjv/books/${slug}/chapters/${chapter}.json`,`https://bible-api.com/${encodeURIComponent(book+' '+chapter)}?translation=kjv&single_chapter_book_matching=indifferent`];let lastError=null;for(const url of urls){try{const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),12000);let response;try{response=await fetch(url,{signal:controller.signal,cache:'no-store'});}finally{clearTimeout(timeout)}if(!response.ok)throw new Error('Bible service returned '+response.status);const payload=await response.json();const verses=normalizeBiblePayload(payload);if(!verses.length)throw new Error('No verses were included in the response');if(token!==bibleLoadToken)return;activeBibleVerses=verses;box.innerHTML=verses.map(v=>`<div class="bible-verse"><span class="verse-num">${escapeHTML(v[0])}</span>${escapeHTML(v[1])}</div>`).join('');box.scrollTop=0;$('bibleReadingSubtitle').textContent='King James Version · '+book+' chapter '+chapter+' · '+verses.length+' verses · Scroll down the page to read all verses';return;}catch(requestError){lastError=requestError;}}if(token!==bibleLoadToken)return;const fallback=sampleBible[book+'|'+chapter]||[];activeBibleVerses=fallback;if(fallback.length){box.innerHTML=fallback.map(v=>`<div class="bible-verse"><span class="verse-num">${escapeHTML(v[0])}</span>${escapeHTML(v[1])}</div>`).join('');$('bibleReadingSubtitle').textContent='Sample passage only · The complete chapter could not be reached. Tap Retry to try again.';}else{box.innerHTML=`<div class="item">The Bible text services could not be reached just now. Check your internet connection, then try again. Your selected book and chapter are still here.<br><button type="button" class="btn" onclick="renderBibleReader()">Retry loading chapter</button></div>`;$('bibleReadingSubtitle').textContent='Unable to connect to the free KJV text sources';}console.warn('Bible chapter failed to load:',book,chapter,lastError)}
+async function renderBibleReader(){stopBibleAudio(true);const book=$('bibleBookSelect').value;const chapter=Number($('bibleChapterSelect').value);const box=$('bibleReadingText');const token=++bibleLoadToken;$('bibleReadingTitle').textContent=book+' '+chapter;$('bibleReadingSubtitle').textContent='King James Version · '+book+' chapter '+chapter+' · Scroll down the page to read every verse';box.textContent='Loading the complete chapter…';activeBibleVerses=[];const bookId=bibleBookIds[book];const slug=bibleBookSlug(book);const urls=[`https://www.dabar.io/data/kjv/${bookId}/${chapter}`,`https://cdn.jsdelivr.net/gh/jsubroto/bible-api@main/versions/kjv/books/${slug}/chapters/${chapter}.json`,`https://bible-api.com/${encodeURIComponent(book+' '+chapter)}?translation=kjv&single_chapter_book_matching=indifferent`];let lastError=null;for(const url of urls){try{const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),12000);let response;try{response=await fetch(url,{signal:controller.signal,cache:'no-store'});}finally{clearTimeout(timeout)}if(!response.ok)throw new Error('Bible service returned '+response.status);const payload=await response.json();const verses=normalizeBiblePayload(payload);if(!verses.length)throw new Error('No verses were included in the response');if(token!==bibleLoadToken)return;activeBibleVerses=verses;box.innerHTML=verses.map(v=>`<div class="bible-verse"><span class="verse-num">${escapeHTML(v[0])}</span>${escapeHTML(v[1])}</div>`).join('');renderBibleVerses();box.scrollTop=0;$('bibleReadingSubtitle').textContent='King James Version · '+book+' chapter '+chapter+' · '+verses.length+' verses · Scroll down the page to read all verses';return;}catch(requestError){lastError=requestError;}}if(token!==bibleLoadToken)return;const fallback=sampleBible[book+'|'+chapter]||[];activeBibleVerses=fallback;if(fallback.length){box.innerHTML=fallback.map(v=>`<div class="bible-verse"><span class="verse-num">${escapeHTML(v[0])}</span>${escapeHTML(v[1])}</div>`).join('');renderBibleVerses();$('bibleReadingSubtitle').textContent='Sample passage only · The complete chapter could not be reached. Tap Retry to try again.';}else{box.innerHTML=`<div class="item">The Bible text services could not be reached just now. Check your internet connection, then try again. Your selected book and chapter are still here.<br><button type="button" class="btn" onclick="renderBibleReader()">Retry loading chapter</button></div>`;$('bibleReadingSubtitle').textContent='Unable to connect to the free KJV text sources';}console.warn('Bible chapter failed to load:',book,chapter,lastError)}
 function changeBibleFont(){const size=Number($('bibleFontSize').value)||20;$('bibleReadingText').style.fontSize=size+'px'}
 function moveBibleChapter(step){const select=$('bibleChapterSelect');const next=Number(select.value)+step;if(next<1||next>select.options.length)return;select.value=String(next);renderBibleReader()}
 function currentBibleText(){const book=$('bibleBookSelect').value;const chapter=Number($('bibleChapterSelect').value);return activeBibleVerses.map(v=>book+' '+chapter+':'+v[0]+' — '+v[1]).join('\n')}
@@ -397,7 +499,19 @@ function updateChallengeCount(){const boxes=[...document.querySelectorAll('[data
 document.querySelectorAll('[data-challenge]').forEach(box=>box.addEventListener('change',()=>{const boxes=[...document.querySelectorAll('[data-challenge]')];const checked=boxes.filter(x=>x.checked).map(x=>x.dataset.challenge);try{localStorage.setItem(challengeKey,JSON.stringify(checked))}catch{}updateChallengeCount();refreshProgress()}));
 loadDailyChallenges();
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
-showAuth('signup');
+// Restore the last signed-in account after refresh or reopening this browser.
+(function restoreSignedInAccount(){
+ try{
+  const email=localStorage.getItem(SESSION_KEY);
+  const profiles=readStore()._profiles||{};
+  if(email && profiles[email]){
+   enter(profiles[email].name,email);
+   return;
+  }
+  if(email) localStorage.removeItem(SESSION_KEY);
+ }catch(e){}
+ showAuth('signup');
+})();
 </script>
 </body>
 </html>
