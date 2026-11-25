@@ -132,7 +132,19 @@ hr{border:0;border-top:1px solid #523021;margin:18px 0}
 @media print{#website .art-banner,#website .art-game img{display:none!important}}
 
 </style>
-<style>#ask .chat-shell{max-width:850px;margin:12px auto;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--panel);display:flex;flex-direction:column;color:#fff}#ask .chat-head{display:flex;align-items:center;gap:12px;padding:14px;background:#291410;color:#ffc45b}#ask .chat-head>div:nth-child(2){flex:1}#ask .chat-head small{display:block;color:#d0b9aa;font-size:12px}#ask .chat-logo{background:#632719;border-radius:50%;padding:8px;font-size:24px}#ask .chat-options{padding:8px 14px;border-bottom:1px solid var(--line)}#ask .chat-options select{margin:3px 0}#ask .chat-options .checkline{font-size:12px;margin:5px 0}#ask .chat-thread{height:clamp(220px,45dvh,520px);overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:16px;background:#110c0b}#ask .chat-bubble{padding:10px 14px;max-width:86%;border-radius:17px;white-space:pre-wrap;overflow-wrap:anywhere;flex-shrink:0}#ask .assistant{align-self:flex-start;background:#30221c;border-bottom-left-radius:4px}#ask .user{align-self:flex-end;background:#a9361d;border-bottom-right-radius:4px}#ask .chat-status{padding:5px 14px;margin:0;font-size:12px;color:#ffc45b;min-height:26px}#ask .chat-compose{display:flex;align-items:center;gap:9px;padding:12px;border-top:1px solid var(--line)}#ask .chat-compose textarea{flex:1;min-width:0;min-height:48px;margin:0;border-radius:20px}#ask .chat-compose button{border-radius:50%;width:48px;height:48px;padding:0}#ask .chat-head button{font-size:12px;padding:8px}</style></head>
+<style>#ask .chat-shell{max-width:850px;margin:12px auto;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--panel);display:flex;flex-direction:column;color:#fff}#ask .chat-head{display:flex;align-items:center;gap:12px;padding:14px;background:#291410;color:#ffc45b}#ask .chat-head>div:nth-child(2){flex:1}#ask .chat-head small{display:block;color:#d0b9aa;font-size:12px}#ask .chat-logo{background:#632719;border-radius:50%;padding:8px;font-size:24px}#ask .chat-options{padding:8px 14px;border-bottom:1px solid var(--line)}#ask .chat-options select{margin:3px 0}#ask .chat-options .checkline{font-size:12px;margin:5px 0}#ask .chat-thread{height:clamp(220px,45dvh,520px);overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:16px;background:#110c0b}#ask .chat-bubble{padding:10px 14px;max-width:86%;border-radius:17px;white-space:pre-wrap;overflow-wrap:anywhere;flex-shrink:0}#ask .assistant{align-self:flex-start;background:#30221c;border-bottom-left-radius:4px}#ask .user{align-self:flex-end;background:#a9361d;border-bottom-right-radius:4px}#ask .chat-status{padding:5px 14px;margin:0;font-size:12px;color:#ffc45b;min-height:26px}#ask .chat-compose{display:flex;align-items:center;gap:9px;padding:12px;border-top:1px solid var(--line)}#ask .chat-compose textarea{flex:1;min-width:0;min-height:48px;margin:0;border-radius:20px}#ask .chat-compose button{border-radius:50%;width:48px;height:48px;padding:0}#ask .chat-head button{font-size:12px;padding:8px}</style><style>
+/* Collapsible settings and owner panels */
+#website .offg-fold{margin:10px 0;border:1px solid var(--line);border-radius:12px;background:var(--panel);overflow:hidden}
+#website .offg-fold>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:14px;cursor:pointer;padding:15px 16px;color:var(--gold);font-weight:700;min-height:54px;overflow-wrap:anywhere}
+#website .offg-fold>summary::-webkit-details-marker{display:none}
+#website .offg-fold>summary::after{content:'+';flex:0 0 30px;text-align:center;font-size:26px;line-height:30px;color:var(--orange);border:1px solid var(--line);border-radius:8px}
+#website .offg-fold[open]>summary::after{content:'−'}
+#website .offg-fold>summary:focus-visible{outline:2px solid var(--gold);outline-offset:-3px}
+#website .offg-fold[open]>summary{border-bottom:1px solid var(--line)}
+#website .offg-fold>.card,#website .offg-fold>.profile-box{margin:0!important;border:0!important;border-radius:0!important;box-shadow:none;max-width:none;width:100%}
+#website .offg-fold>.card>*{max-width:100%}
+</style>
+</head>
 <body>
 <div class="auth" id="auth">
  <div class="card">
@@ -681,20 +693,28 @@ async function generateLocalAI(mode,text,status,result,keep=false){
   if(!active())return;
   status('Generating on this device…');
   const messages=[{role:'system',content:'You are a Bible education tool, not a person, pastor, counselor or divine authority. Give concise age-appropriate educational answers. Never encourage secrecy, harm, sexual content, or dependence. For serious personal or safety concerns recommend a trusted adult or qualified professional. Admit uncertainty; do not invent Bible verses or historical facts. Verify references against Scripture.'}];
-  if(keep)for(const x of history.slice(-2)){messages.push({role:'user',content:x.q.slice(0,500)},{role:'assistant',content:x.a.slice(0,500)});}
+  if(keep)for(const x of history.slice(-2)){messages.push({role:'user',content:x.q.slice(0,300)},{role:'assistant',content:x.a.slice(0,400)});}
   messages.push({role:'user',content:localModes[mode]+'\n'+text});
-  const completion=await localEngine.chat.completions.create({messages,max_tokens:350,temperature:0.3});
+  const quick=['companion','conversation','verse','prayer','salvation'].includes(mode);
+  const chunks=await localEngine.chat.completions.create({messages,max_tokens:quick?160:350,temperature:0.3,stream:true});
+  let answer='', lastPaint=0;
+  for await(const chunk of chunks){
+   if(!active()){localEngine.interruptGenerate?.();break;}
+   const delta=chunk.choices?.[0]?.delta?.content||'';
+   if(!delta)continue;
+   answer+=delta;
+   if(!lastPaint||performance.now()-lastPaint>=80){result(answer);lastPaint=performance.now();status('AI is typing…');await new Promise(resolve=>setTimeout(resolve,0));}
+  }
   if(!active())return;
-  const answer=completion.choices?.[0]?.message?.content;
-  if(!answer)throw Error('The model returned no answer.');
+  if(!answer.trim())throw Error('The model returned no answer.');
   localCalls++;result(answer);
   if(keep){history.push({q:text,a:answer});history=history.slice(-8);say('aiHistory',history.map(x=>x.q+'\n'+x.a).join('\n\n'));}
   status('Local AI response received. Verify it against Scripture.');
  }finally{localBusy=false;$('aiSend').disabled=false;}
 }
-function chatBubble(role,text){const b=document.createElement('div');b.className='chat-bubble '+role;b.textContent=text;$('chatThread').append(b);$('chatThread').scrollTop=$('chatThread').scrollHeight;}
+function chatBubble(role,text){const b=document.createElement('div');b.className='chat-bubble '+role;b.textContent=text;$('chatThread').append(b);$('chatThread').scrollTop=$('chatThread').scrollHeight;return b;}
 function resetChat(){$('chatThread').replaceChildren();chatBubble('assistant','Welcome! What would you like to learn about the Bible?');}
-run('aiSend',async()=>{const input=$('aiInput'),text=input.value.trim();if(!text)return;if(!$('aiConsent').checked)throw Error('Enable on-device AI in Menu → Settings → AI Settings first.');if(localBusy)throw Error('AI is already generating.');chatBubble('user',text);input.value='';try{await generateLocalAI($('aiMode').value,text,t=>say('aiStatus',t),t=>{say('aiResult',t);chatBubble('assistant',t);},$('aiKeep').checked);}catch(e){input.value=text;throw e;}});
+run('aiSend',async()=>{const input=$('aiInput'),text=input.value.trim();if(!text)return;if(!$('aiConsent').checked)throw Error('Enable on-device AI in Menu → Settings → AI Settings first.');if(localBusy)throw Error('AI is already generating.');chatBubble('user',text);input.value='';let reply=null;try{await generateLocalAI($('aiMode').value,text,t=>say('aiStatus',t),t=>{say('aiResult',t);if(!reply)reply=chatBubble('assistant',t);else reply.textContent=t;$('chatThread').scrollTop=$('chatThread').scrollHeight;},$('aiKeep').checked);}catch(e){if(reply)reply.textContent+='\n[Response interrupted]';input.value=text;throw e;}});
 $('aiInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();if(!$('aiSend').disabled)$('aiSend').click();}});
 run('aiClear',async()=>{localGeneration++;history=[];say('aiHistory','');say('aiResult','');$('aiInput').value='';say('aiStatus','Session history cleared.');clearPageAI();});
 run('aiUsage',async()=>{say('aiStatus','Local AI: '+(localEngine?'model loaded':'model not loaded')+'. Responses this page session: '+localCalls+'. No paid API calls.');});
@@ -739,6 +759,36 @@ for(const p of pageTools){const input=p.querySelector('[data-ai-input]'),status=
 }
 
 (async()=>{try{if(recoveryMode)showRecovery();const c=await connect();c.auth.onAuthStateChange((event,session)=>{if(event==='PASSWORD_RECOVERY'){showRecovery();return;}if(event==='SIGNED_OUT'){user=null;localGeneration++;clearPageAI();history=[];say('aiHistory','');say('aiResult','');$('aiInput').value='';hideOwner();if(!recoveryMode)localExit();}else if(session?.user){user=session.user;}});const d=check(await c.auth.getSession());if(recoveryMode){if(!d.session)say('resetStatus','Recovery link expired or invalid. Reopen the site and request a new link.');}else if(d.session?.user)openSecureProfile(d.session.user);}catch(e){say('onlineStatus','Online connection unavailable: '+e.message);say('authStatus','Online connection unavailable: '+e.message);if(recoveryMode)say('resetStatus',e.message);}})();
+</script>
+<script>
+(function(){
+  function fold(card, heading){
+    const details=document.createElement('details');details.className='offg-fold';
+    const summary=document.createElement('summary');summary.textContent=heading.textContent.trim();
+    details.appendChild(summary);card.before(details);details.appendChild(card);heading.remove();
+  }
+  function setup(root){
+    if(!root)return;
+    for(const card of Array.from(root.children)){
+      if(!card.matches('.card,.profile-box'))continue;
+      const headings=Array.from(card.children).filter(el=>el.tagName==='H2');
+      if(!headings.length)continue;
+      // Split multi-topic cards at their original headings. Move nodes, preserving IDs and handlers.
+      if(headings.length>1){
+        let current=null;
+        for(const node of Array.from(card.childNodes)){
+          if(headings.includes(node)){
+            current=card.cloneNode(false);current.removeAttribute('id');card.before(current);current.appendChild(node);
+          }else if(current){current.appendChild(node);}
+        }
+        if(current){const created=[];let prev=card.previousElementSibling;while(prev&&prev.matches('.card')&&created.length<headings.length){created.unshift(prev);prev=prev.previousElementSibling;}
+          card.remove();for(const part of created){const h=part.querySelector(':scope > h2');if(h)fold(part,h);} }
+      }else{fold(card,headings[0]);}
+    }
+  }
+  setup(document.getElementById('settings'));
+  setup(document.getElementById('ownerControls'));
+})();
 </script>
 </body>
 </html>
